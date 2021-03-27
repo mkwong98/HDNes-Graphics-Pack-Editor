@@ -46,3 +46,5 @@ obj/Release/main.o
 obj/Release/mainForm.o
 obj/Release/paletteSwap.o
 obj/Release/tileReference.o
+bin/Release/HDNesPackEditor.7z
+bin/Release/HDNesPackEditor.zip
