@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="hdnesPackEditor" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/hdnesPackEditor" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add directory="include" />
+					<Add directory="../hdnesPackEditor" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/hdnesPackEditor" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add directory="include" />
+					<Add directory="../hdnesPackEditor" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+			<Add directory="../../../include" />
+		</Compiler>
+		<Linker>
+			<Add option="-lmingw32 -lSDL2main -lSDL2" />
+			<Add library="../../../lib/libwx_mswu_gl-3.0.dll.a" />
+			<Add library="../../../lib/libwx_baseu-3.0.dll.a" />
+			<Add library="../../../lib/libwxscintilla-3.0.a" />
+			<Add library="../../../lib/libwxexpat-3.0.a" />
+			<Add library="../../../lib/libwxtiff-3.0.a" />
+			<Add library="../../../lib/libwxjpeg-3.0.a" />
+			<Add library="../../../lib/libwxpng-3.0.a" />
+			<Add library="../../../lib/libwxzlib-3.0.a" />
+			<Add library="../../../lib/libwxregexu-3.0.a" />
+			<Add library="../../../lib/libwx_baseu_net-3.0.dll.a" />
+			<Add library="../../../lib/libwx_baseu_xml-3.0.dll.a" />
+			<Add library="../../../lib/libwx_mswu_adv-3.0.dll.a" />
+			<Add library="../../../lib/libwx_mswu_aui-3.0.dll.a" />
+			<Add library="../../../lib/libwx_mswu_core-3.0.dll.a" />
+			<Add library="../../../lib/libwx_mswu_html-3.0.dll.a" />
+			<Add library="../../../lib/libwx_mswu_media-3.0.dll.a" />
+			<Add library="../../../lib/libwx_mswu_propgrid-3.0.dll.a" />
+			<Add library="../../../lib/libwx_mswu_qa-3.0.dll.a" />
+			<Add library="../../../lib/libwx_mswu_ribbon-3.0.dll.a" />
+			<Add library="../../../lib/libwx_mswu_richtext-3.0.dll.a" />
+			<Add library="../../../lib/libwx_mswu_stc-3.0.dll.a" />
+			<Add library="../../../lib/libwx_mswu_webview-3.0.dll.a" />
+			<Add library="../../../lib/libwx_mswu_xrc-3.0.dll.a" />
+			<Add directory="../../../lib" />
+			<Add directory="C:/Program Files (x86)/CodeBlocks/MinGW/lib" />
+		</Linker>
+		<Unit filename="classList.h" />
+		<Unit filename="colourDialogClient.h" />
+		<Unit filename="common.h" />
+		<Unit filename="condition.cpp" />
+		<Unit filename="condition.h" />
+		<Unit filename="coreData.cpp" />
+		<Unit filename="coreData.h" />
+		<Unit filename="gameObjNode.cpp" />
+		<Unit filename="gameObjNode.h" />
+		<Unit filename="gameTile.cpp" />
+		<Unit filename="gameTile.h" />
+		<Unit filename="hdnesPackEditorcolourSelectDialog.cpp" />
+		<Unit filename="hdnesPackEditorcolourSelectDialog.h" />
+		<Unit filename="hdnesPackEditorimageDialog.cpp" />
+		<Unit filename="hdnesPackEditorimageDialog.h" />
+		<Unit filename="hdnesPackEditormainForm.cpp" />
+		<Unit filename="hdnesPackEditormainForm.h" />
+		<Unit filename="hdnesPackEditornewProjectDialog.cpp" />
+		<Unit filename="hdnesPackEditornewProjectDialog.h" />
+		<Unit filename="hdnesPackEditorpaletteDialog.cpp" />
+		<Unit filename="hdnesPackEditorpaletteDialog.h" />
+		<Unit filename="hdnesPackEditorreplacementDialog.cpp" />
+		<Unit filename="hdnesPackEditorreplacementDialog.h" />
+		<Unit filename="image.cpp" />
+		<Unit filename="image.h" />
+		<Unit filename="imageDialogClient.h" />
+		<Unit filename="main.cpp" />
+		<Unit filename="main.h" />
+		<Unit filename="mainForm.cpp" />
+		<Unit filename="mainForm.h" />
+		<Unit filename="paletteDialogClient.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="paletteSwap.cpp" />
+		<Unit filename="paletteSwap.h" />
+		<Unit filename="tileReference.cpp" />
+		<Unit filename="tileReference.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
