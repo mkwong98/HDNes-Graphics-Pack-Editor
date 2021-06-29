@@ -54,7 +54,7 @@ class gameObjNode : public wxTreeItemData
         double hScrollRate;
         double vScrollRate;
         string fileName;
-        bool showBehindBgSprites;
+        int priority;
         int offsetX;
         int offsetY;
         int moveX;

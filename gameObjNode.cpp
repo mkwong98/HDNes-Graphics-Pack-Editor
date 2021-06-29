@@ -22,7 +22,7 @@ gameObjNode::gameObjNode()
     hScrollRate = 0;
     vScrollRate = 0;
     fileName = "";
-    showBehindBgSprites = false;
+    priority = 10;
     offsetX = 0;
     offsetY = 0;
     moveX = 0;
@@ -125,7 +125,10 @@ void gameObjNode::load(fstream& file, wxTreeItemId newItm){
                 vScrollRate = atof(tailStrs[1].c_str());
             }
             else if(lineHdr == "<showBehindBGSprites>"){
-                showBehindBgSprites = (lineTail == "Y");
+                priority = (lineTail == "Y" ? 0 : 10);
+            }
+            else if(lineHdr == "<priority>"){
+                priority = atof(lineTail.c_str());
             }
             else if(lineHdr == "<offset>"){
                 offsetX = atoi(tailStrs[0].c_str());
@@ -240,7 +243,7 @@ void gameObjNode::save(fstream& file, wxTreeItemId newItm){
         else if(nodeType == GAME_OBJ_NODE_TYPE_BGIMAGE){
             file << "<fileName>" << fileName << "\n";
             file << "<scrollRate>" << hScrollRate << "," << vScrollRate << "\n";
-            file << "<showBehindBGSprites>" << (showBehindBgSprites ? "Y" : "N") << "\n";
+            file << "<priority>" << priority << "\n";
             file << "<offset>" << offsetX  << "," << offsetY << "\n";
             file << "<move>" << moveX << "," << moveY  << "," << moveFreq << "," << moveCount << "\n";
         }
@@ -326,7 +329,7 @@ gameObjNode* gameObjNode::clone(){
     n->fileName = fileName;
     n->hScrollRate = hScrollRate;
     n->vScrollRate = vScrollRate;
-    n->showBehindBgSprites = showBehindBgSprites;
+    n->priority = priority;
     n->offsetX = offsetY;
     n->offsetY = offsetY;
     n->moveX = moveX;
@@ -355,7 +358,7 @@ string gameObjNode::writeConditionNames(){
 
 string gameObjNode::writeLine(int frameID){
     stringstream stream;
-    stream << fileName << "," << brightness << "," << hScrollRate << "," << vScrollRate << "," << (coreData::cData->verNo >= 106 ? (showBehindBgSprites ? "0" : "10") : (showBehindBgSprites ? "Y" : "N")) << "," << offsetX + (frameID * moveX) << "," << offsetY + (frameID * moveY);
+    stream << fileName << "," << brightness << "," << hScrollRate << "," << vScrollRate << "," << (coreData::cData->verNo >= 106 ? main::intToStr(priority) : (priority < 10 ? "Y" : "N")) << "," << offsetX + (frameID * moveX) << "," << offsetY + (frameID * moveY);
     return stream.str();
 }
 

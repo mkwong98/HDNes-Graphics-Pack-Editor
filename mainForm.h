@@ -125,7 +125,7 @@ class mainForm : public wxFrame
 		wxStaticText* m_staticText57;
 		wxSpinCtrl* spnBGVScrollRate;
 		wxStaticText* m_staticText59;
-		wxCheckBox* chkBgShowBehind;
+		wxSpinCtrl* spnBGPriority;
 		wxStaticText* m_staticText65;
 		wxTextCtrl* txtBGOffsetX;
 		wxStaticText* m_staticText66;
@@ -276,7 +276,7 @@ class mainForm : public wxFrame
 		virtual void BGImageBrightness( wxSpinEvent& event ) { event.Skip(); }
 		virtual void BGImageHScrollRate( wxSpinEvent& event ) { event.Skip(); }
 		virtual void BGImageVScrollRate( wxSpinEvent& event ) { event.Skip(); }
-		virtual void BGImageShowBehindClicked( wxCommandEvent& event ) { event.Skip(); }
+		virtual void BGImagePriority( wxSpinEvent& event ) { event.Skip(); }
 		virtual void BGImageOffsetX( wxCommandEvent& event ) { event.Skip(); }
 		virtual void BGImageOffsetY( wxCommandEvent& event ) { event.Skip(); }
 		virtual void BGImageMoveX( wxCommandEvent& event ) { event.Skip(); }

@@ -708,6 +708,7 @@ void hdnesPackEditormainForm::initGameObjs(){
     cboConditionType->Append(wxString("ppuMemoryCheck"));
     cboConditionType->Append(wxString("memoryCheckConstant"));
     cboConditionType->Append(wxString("ppuMemoryCheckConstant"));
+    cboConditionType->Append(wxString("spriteFrameRange"));
     showConditionPanel();
 
     cboConditionOp->Append(wxString("=="));
@@ -1717,7 +1718,7 @@ void hdnesPackEditormainForm::refreshBGImage(){
     spnBGBrightness->SetValue(ndata->brightness * 100);
     spnBGHScrollRate->SetValue(ndata->hScrollRate * 100);
     spnBGVScrollRate->SetValue(ndata->vScrollRate * 100);
-    chkBgShowBehind->SetValue(ndata->showBehindBgSprites);
+    spnBGPriority->SetValue(ndata->priority);
     txtBGOffsetX->SetValue(main::intToStr(ndata->offsetX));
     txtBGOffsetY->SetValue(main::intToStr(ndata->offsetY));
     txtBGMoveX->SetValue(main::intToStr(ndata->moveX));
@@ -3189,10 +3190,10 @@ void hdnesPackEditormainForm::BGImageVScrollRate( wxSpinEvent& event ){
     }
 }
 
-void hdnesPackEditormainForm::BGImageShowBehindClicked( wxCommandEvent& event ) {
+void hdnesPackEditormainForm::BGImagePriority( wxSpinEvent& event ){
     gameObjNode* ndata = getGameObjsSelectedObjectTreeNode();
     if(ndata){
-        ndata->showBehindBgSprites = chkBgShowBehind->GetValue();
+        ndata->priority = spnBGPriority->GetValue();
         dataChanged();
     }
 }

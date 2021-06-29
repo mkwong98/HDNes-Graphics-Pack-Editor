@@ -271,7 +271,7 @@ mainForm::mainForm( wxWindow* parent, wxWindowID id, const wxString& title, cons
 	pnlObj->SetSizer( bSizer14 );
 	pnlObj->Layout();
 	bSizer14->Fit( pnlObj );
-	nbkGameObject->AddPage( pnlObj, wxT("Object information"), true );
+	nbkGameObject->AddPage( pnlObj, wxT("Object information"), false );
 	pnlSwaps = new wxPanel( nbkGameObject, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxBoxSizer* bSizer40;
 	bSizer40 = new wxBoxSizer( wxVERTICAL );
@@ -540,12 +540,14 @@ mainForm::mainForm( wxWindow* parent, wxWindowID id, const wxString& title, cons
 
 	bSizer61->Add( spnBGVScrollRate, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 
-	m_staticText59 = new wxStaticText( pnlBGImage, wxID_ANY, wxT("%"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText59 = new wxStaticText( pnlBGImage, wxID_ANY, wxT("%  Priority:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText59->Wrap( -1 );
 	bSizer61->Add( m_staticText59, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 
-	chkBgShowBehind = new wxCheckBox( pnlBGImage, wxID_ANY, wxT("Show Behind Background Priority Sprites"), wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer61->Add( chkBgShowBehind, 0, wxALL, 5 );
+	spnBGPriority = new wxSpinCtrl( pnlBGImage, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxSP_ARROW_KEYS, 0, 39, 0 );
+	spnBGPriority->SetMaxSize( wxSize( 50,-1 ) );
+
+	bSizer61->Add( spnBGPriority, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
 
 	bSizer59->Add( bSizer61, 0, wxEXPAND, 5 );
@@ -631,7 +633,7 @@ mainForm::mainForm( wxWindow* parent, wxWindowID id, const wxString& title, cons
 	pnlBGImage->SetSizer( bSizer59 );
 	pnlBGImage->Layout();
 	bSizer59->Fit( pnlBGImage );
-	nbkGameObject->AddPage( pnlBGImage, wxT("Background"), false );
+	nbkGameObject->AddPage( pnlBGImage, wxT("Background"), true );
 	pnlConditions = new wxPanel( nbkGameObject, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxBoxSizer* bSizer512;
 	bSizer512 = new wxBoxSizer( wxVERTICAL );
@@ -1178,7 +1180,7 @@ mainForm::mainForm( wxWindow* parent, wxWindowID id, const wxString& title, cons
 	spnBGBrightness->Connect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( mainForm::BGImageBrightness ), NULL, this );
 	spnBGHScrollRate->Connect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( mainForm::BGImageHScrollRate ), NULL, this );
 	spnBGVScrollRate->Connect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( mainForm::BGImageVScrollRate ), NULL, this );
-	chkBgShowBehind->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( mainForm::BGImageShowBehindClicked ), NULL, this );
+	spnBGPriority->Connect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( mainForm::BGImagePriority ), NULL, this );
 	txtBGOffsetX->Connect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( mainForm::BGImageOffsetX ), NULL, this );
 	txtBGOffsetY->Connect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( mainForm::BGImageOffsetY ), NULL, this );
 	txtBGMoveX->Connect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( mainForm::BGImageMoveX ), NULL, this );
@@ -1318,7 +1320,7 @@ mainForm::~mainForm()
 	spnBGBrightness->Disconnect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( mainForm::BGImageBrightness ), NULL, this );
 	spnBGHScrollRate->Disconnect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( mainForm::BGImageHScrollRate ), NULL, this );
 	spnBGVScrollRate->Disconnect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( mainForm::BGImageVScrollRate ), NULL, this );
-	chkBgShowBehind->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( mainForm::BGImageShowBehindClicked ), NULL, this );
+	spnBGPriority->Disconnect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( mainForm::BGImagePriority ), NULL, this );
 	txtBGOffsetX->Disconnect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( mainForm::BGImageOffsetX ), NULL, this );
 	txtBGOffsetY->Disconnect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( mainForm::BGImageOffsetY ), NULL, this );
 	txtBGMoveX->Disconnect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( mainForm::BGImageMoveX ), NULL, this );
