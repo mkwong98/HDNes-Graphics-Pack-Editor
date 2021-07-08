@@ -1769,6 +1769,7 @@ void hdnesPackEditormainForm::refreshGameObj(){
     rbnObjectBG->SetValue(!ndata->isSprite);
     spnBrightness->SetValue(ndata->brightness * 100);
     chkGameObjIsDefault->SetValue(ndata->isDefault);
+    chkGameObjUseSpriteFrameRange->SetValue(ndata->useSpriteFrameRange);
 
     refreshCboFrameRange(ndata);
     selectedFrameRange = 0;
@@ -2399,6 +2400,14 @@ void hdnesPackEditormainForm::gameObjDefaultClicked( wxCommandEvent& event ){
     }
 }
 
+void hdnesPackEditormainForm::gameObjUseSpriteFrameRangeClicked( wxCommandEvent& event ){
+    gameObjNode* ndata = getGameObjsSelectedObjectTreeNode();
+    if(ndata){
+        ndata->useSpriteFrameRange = chkGameObjUseSpriteFrameRange->GetValue();
+        dataChanged();
+    }
+}
+
 void hdnesPackEditormainForm::configGameObjs(string lineHdr, string lineTail){
 }
 
@@ -2577,7 +2586,7 @@ void hdnesPackEditormainForm::genGameObjItemConditionPack(fstream& file, wxTreeI
         frameCounter = totalFrames;
         for(int i = node->frameRanges.size() - 1; i > 0; --i){
             frameCounter -= node->frameRanges[i].frameCnt;
-            file << "<condition>" << node->nodeName << "_" << node->frameRanges[i].frameName << ",frameRange," << (coreData::cData->verNo >= 103 ? main::intToStr(totalFrames) : main::intToHex(totalFrames)) << "," << (coreData::cData->verNo >= 103 ? main::intToStr(frameCounter) : main::intToHex(frameCounter)) << "\n";
+            file << "<condition>" << node->nodeName << "_" << node->frameRanges[i].frameName << (node->useSpriteFrameRange ? "spriteframerange" : ",frameRange,") << (coreData::cData->verNo >= 103 ? main::intToStr(totalFrames) : main::intToHex(totalFrames)) << "," << (coreData::cData->verNo >= 103 ? main::intToStr(frameCounter) : main::intToHex(frameCounter)) << "\n";
         }
     }
     for(int i = 0; i < node->tiles.size(); ++i){

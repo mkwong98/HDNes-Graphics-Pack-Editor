@@ -177,6 +177,9 @@ mainForm::mainForm( wxWindow* parent, wxWindowID id, const wxString& title, cons
 	cboFrameRange->SetSelection( 0 );
 	bSizer72->Add( cboFrameRange, 0, wxALL, 5 );
 
+	chkGameObjUseSpriteFrameRange = new wxCheckBox( pnlObj, wxID_ANY, wxT("Use sprite frame range condition"), wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer72->Add( chkGameObjUseSpriteFrameRange, 0, wxALL, 5 );
+
 
 	bSizer33->Add( bSizer72, 1, wxEXPAND, 5 );
 
@@ -271,7 +274,7 @@ mainForm::mainForm( wxWindow* parent, wxWindowID id, const wxString& title, cons
 	pnlObj->SetSizer( bSizer14 );
 	pnlObj->Layout();
 	bSizer14->Fit( pnlObj );
-	nbkGameObject->AddPage( pnlObj, wxT("Object information"), false );
+	nbkGameObject->AddPage( pnlObj, wxT("Object information"), true );
 	pnlSwaps = new wxPanel( nbkGameObject, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxBoxSizer* bSizer40;
 	bSizer40 = new wxBoxSizer( wxVERTICAL );
@@ -633,7 +636,7 @@ mainForm::mainForm( wxWindow* parent, wxWindowID id, const wxString& title, cons
 	pnlBGImage->SetSizer( bSizer59 );
 	pnlBGImage->Layout();
 	bSizer59->Fit( pnlBGImage );
-	nbkGameObject->AddPage( pnlBGImage, wxT("Background"), true );
+	nbkGameObject->AddPage( pnlBGImage, wxT("Background"), false );
 	pnlConditions = new wxPanel( nbkGameObject, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxBoxSizer* bSizer512;
 	bSizer512 = new wxBoxSizer( wxVERTICAL );
@@ -1115,6 +1118,7 @@ mainForm::mainForm( wxWindow* parent, wxWindowID id, const wxString& title, cons
 	chkGameObjIsDefault->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( mainForm::gameObjDefaultClicked ), NULL, this );
 	zoomGameObjs->Connect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( mainForm::zoomGameObjsChanged ), NULL, this );
 	cboFrameRange->Connect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( mainForm::ShowSelectedFrame ), NULL, this );
+	chkGameObjUseSpriteFrameRange->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( mainForm::gameObjUseSpriteFrameRangeClicked ), NULL, this );
 	pnlGameObjRaw->Connect( wxEVT_ENTER_WINDOW, wxMouseEventHandler( mainForm::gameObjsRawEnter ), NULL, this );
 	pnlGameObjRaw->Connect( wxEVT_LEFT_DOWN, wxMouseEventHandler( mainForm::gameObjsRawLDown ), NULL, this );
 	pnlGameObjRaw->Connect( wxEVT_LEFT_UP, wxMouseEventHandler( mainForm::gameObjsRawLUp ), NULL, this );
@@ -1255,6 +1259,7 @@ mainForm::~mainForm()
 	chkGameObjIsDefault->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( mainForm::gameObjDefaultClicked ), NULL, this );
 	zoomGameObjs->Disconnect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( mainForm::zoomGameObjsChanged ), NULL, this );
 	cboFrameRange->Disconnect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( mainForm::ShowSelectedFrame ), NULL, this );
+	chkGameObjUseSpriteFrameRange->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( mainForm::gameObjUseSpriteFrameRangeClicked ), NULL, this );
 	pnlGameObjRaw->Disconnect( wxEVT_ENTER_WINDOW, wxMouseEventHandler( mainForm::gameObjsRawEnter ), NULL, this );
 	pnlGameObjRaw->Disconnect( wxEVT_LEFT_DOWN, wxMouseEventHandler( mainForm::gameObjsRawLDown ), NULL, this );
 	pnlGameObjRaw->Disconnect( wxEVT_LEFT_UP, wxMouseEventHandler( mainForm::gameObjsRawLUp ), NULL, this );

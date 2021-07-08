@@ -75,6 +75,7 @@ class mainForm : public wxFrame
 		wxSpinCtrl* zoomGameObjs;
 		wxStaticText* m_staticText611;
 		wxChoice* cboFrameRange;
+		wxCheckBox* chkGameObjUseSpriteFrameRange;
 		wxPanel* pnlGameObjRaw;
 		wxScrollBar* scrGameObjRawV;
 		wxScrollBar* scrGameObjRawH;
@@ -243,6 +244,7 @@ class mainForm : public wxFrame
 		virtual void gameObjDefaultClicked( wxCommandEvent& event ) { event.Skip(); }
 		virtual void zoomGameObjsChanged( wxSpinEvent& event ) { event.Skip(); }
 		virtual void ShowSelectedFrame( wxCommandEvent& event ) { event.Skip(); }
+		virtual void gameObjUseSpriteFrameRangeClicked( wxCommandEvent& event ) { event.Skip(); }
 		virtual void gameObjsRawEnter( wxMouseEvent& event ) { event.Skip(); }
 		virtual void gameObjsRawLDown( wxMouseEvent& event ) { event.Skip(); }
 		virtual void gameObjsRawLUp( wxMouseEvent& event ) { event.Skip(); }

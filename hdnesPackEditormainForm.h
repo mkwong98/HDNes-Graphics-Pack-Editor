@@ -92,6 +92,7 @@ class hdnesPackEditormainForm : public mainForm, public colourDialogClient, publ
 		void gameObjsRawLUp( wxMouseEvent& event );
 		void replaceBrightnessChanged( wxScrollEvent& event );
 		void gameObjDefaultClicked( wxCommandEvent& event );
+        void gameObjUseSpriteFrameRangeClicked( wxCommandEvent& event );
 
         void BGImageSelect( wxCommandEvent& event );
 		void BGImageBrightness( wxSpinEvent& event );

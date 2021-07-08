@@ -19,6 +19,7 @@ gameObjNode::gameObjNode()
     isSprite = false;
     brightness = 1;
     isDefault = false;
+    useSpriteFrameRange = false;
     hScrollRate = 0;
     vScrollRate = 0;
     fileName = "";
@@ -116,6 +117,9 @@ void gameObjNode::load(fstream& file, wxTreeItemId newItm){
             }
             else if(lineHdr == "<isDefault>"){
                 isDefault = (lineTail == "Y");
+            }
+            else if(lineHdr == "<useSpriteFrameRange>"){
+                useSpriteFrameRange = (lineTail == "Y");
             }
             else if(lineHdr == "<childObjects>"){
                 main::mForm->loadChildGameObjs(file, newItm);
@@ -227,6 +231,7 @@ void gameObjNode::save(fstream& file, wxTreeItemId newItm){
             file << "<bgColour>" << main::intToHex(bgColour) << "\n";
             file << "<isSprite>" << (isSprite ? "Y" : "N") << "\n";
             file << "<isDefault>" << (isDefault ? "Y" : "N") << "\n";
+            file << "<useSpriteFrameRange>" << (useSpriteFrameRange ? "Y" : "N") << "\n";
 
             file << "<tiles>\n";
             for(int i = 0; i < tiles.size(); ++i){
@@ -318,6 +323,7 @@ gameObjNode* gameObjNode::clone(){
     n->bgColour = bgColour;
     n->isSprite = isSprite;
     n->isDefault = isDefault;
+    n->useSpriteFrameRange = useSpriteFrameRange;
 
     for(int i = 0; i < tiles.size(); ++i){
         n->addTile(tiles[i].clone());

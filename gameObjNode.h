@@ -49,6 +49,7 @@ class gameObjNode : public wxTreeItemData
         bool isSprite;
         float brightness;
         bool isDefault;
+        bool useSpriteFrameRange;
 
         //bg image
         double hScrollRate;
