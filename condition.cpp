@@ -154,8 +154,8 @@ void condition::readLine(string s){
         value = strtol(tokens[4].c_str(), NULL, 16);
     }
     else if(getType() == 3){
-        frame1 = strtol(tokens[2].c_str(), NULL, 16);
-        frame2 = strtol(tokens[3].c_str(), NULL, 16);
+        frame1 = atoi(tokens[2].c_str());
+        frame2 = atoi(tokens[3].c_str());
     }
 }
 
@@ -171,7 +171,7 @@ string condition::writeLine(){
         stream << main::intToHex(address) << "," << op << "," << main::intToHex(value);
     }
     else if(getType() == 3){
-        stream << main::intToHex(frame1) << "," << main::intToHex(frame2);
+        stream << frame1 << "," << frame2;
     }
     return stream.str();
 }

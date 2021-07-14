@@ -708,6 +708,7 @@ void hdnesPackEditormainForm::initGameObjs(){
     cboConditionType->Append(wxString("ppuMemoryCheck"));
     cboConditionType->Append(wxString("memoryCheckConstant"));
     cboConditionType->Append(wxString("ppuMemoryCheckConstant"));
+    cboConditionType->Append(wxString("frameRange"));
     cboConditionType->Append(wxString("spriteFrameRange"));
     showConditionPanel();
 
@@ -3043,6 +3044,10 @@ void hdnesPackEditormainForm::showCondition(){
         cboConditionOp2->SetSelection(cboConditionOp2->FindString(wxString(c.op.c_str())));
         txtConditionValue->SetValue(main::intToHex(c.value));
     }
+    else if(c.conditionType == "frameRange" || c.conditionType == "spriteFrameRange"){
+        txtConditionDivisor->SetValue(main::intToStr(c.frame1));
+        txtConditionFrameValue->SetValue(main::intToStr(c.frame2));
+    }
 }
 
 void hdnesPackEditormainForm::ConditionTypeSelect( wxCommandEvent& event ){
@@ -3102,6 +3107,10 @@ void hdnesPackEditormainForm::updateConditionData(condition& c){
         c.op = cboConditionOp2->GetString(cboConditionOp2->GetSelection());
         c.value = strtol(txtConditionValue->GetValue(), NULL, 16);
     }
+    else if(c.conditionType == "frameRange" || c.conditionType == "spriteFrameRange"){
+        c.frame1 = atoi(txtConditionDivisor->GetValue());
+        c.frame2 = atoi(txtConditionFrameValue->GetValue());
+    }
 }
 
 void hdnesPackEditormainForm::showConditionPanel(){
@@ -3112,6 +3121,7 @@ void hdnesPackEditormainForm::showConditionPanel(){
     pnlConditionType1->Show(false);
     pnlConditionType2->Show(false);
     pnlConditionType3->Show(false);
+    pnlConditionType4->Show(false);
     if(conType == "tileNearby" || conType == "spriteNearby" || conType == "tileAtPosition" || conType == "spriteAtPosition"){
         pnlConditionType1->Show(true);
     }
@@ -3120,6 +3130,9 @@ void hdnesPackEditormainForm::showConditionPanel(){
     }
     else if(conType == "memoryCheckConstant" || conType == "ppuMemoryCheckConstant"){
         pnlConditionType3->Show(true);
+    }
+    else if(conType == "frameRange" || conType == "spriteFrameRange"){
+        pnlConditionType4->Show(true);
     }
     else{
         pnlConditionType0->Show(true);

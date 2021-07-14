@@ -182,6 +182,12 @@ class mainForm : public wxFrame
 		wxStaticText* m_staticText46;
 		wxStaticText* m_staticText47;
 		wxTextCtrl* txtConditionValue;
+		wxPanel* pnlConditionType4;
+		wxStaticText* m_staticText74;
+		wxTextCtrl* txtConditionDivisor;
+		wxStaticText* m_staticText75;
+		wxStaticText* m_staticText76;
+		wxTextCtrl* txtConditionFrameValue;
 		wxPanel* pnlConditionType0;
 		wxStaticText* m_staticText50;
 		wxButton* cmdConditionAdd;

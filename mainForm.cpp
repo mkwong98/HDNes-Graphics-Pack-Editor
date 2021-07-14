@@ -274,7 +274,7 @@ mainForm::mainForm( wxWindow* parent, wxWindowID id, const wxString& title, cons
 	pnlObj->SetSizer( bSizer14 );
 	pnlObj->Layout();
 	bSizer14->Fit( pnlObj );
-	nbkGameObject->AddPage( pnlObj, wxT("Object information"), true );
+	nbkGameObject->AddPage( pnlObj, wxT("Object information"), false );
 	pnlSwaps = new wxPanel( nbkGameObject, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxBoxSizer* bSizer40;
 	bSizer40 = new wxBoxSizer( wxVERTICAL );
@@ -812,6 +812,34 @@ mainForm::mainForm( wxWindow* parent, wxWindowID id, const wxString& title, cons
 	bSizer58->Fit( pnlConditionType3 );
 	bSizer521->Add( pnlConditionType3, 0, wxEXPAND | wxALL, 5 );
 
+	pnlConditionType4 = new wxPanel( pnlConditions, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+	wxBoxSizer* bSizer74;
+	bSizer74 = new wxBoxSizer( wxHORIZONTAL );
+
+	m_staticText74 = new wxStaticText( pnlConditionType4, wxID_ANY, wxT("Divisor:"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText74->Wrap( -1 );
+	bSizer74->Add( m_staticText74, 0, wxALL, 5 );
+
+	txtConditionDivisor = new wxTextCtrl( pnlConditionType4, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer74->Add( txtConditionDivisor, 0, wxALL, 5 );
+
+	m_staticText75 = new wxStaticText( pnlConditionType4, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText75->Wrap( -1 );
+	bSizer74->Add( m_staticText75, 0, wxALL, 5 );
+
+	m_staticText76 = new wxStaticText( pnlConditionType4, wxID_ANY, wxT("Frame value:"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText76->Wrap( -1 );
+	bSizer74->Add( m_staticText76, 0, wxALL, 5 );
+
+	txtConditionFrameValue = new wxTextCtrl( pnlConditionType4, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer74->Add( txtConditionFrameValue, 0, wxALL, 5 );
+
+
+	pnlConditionType4->SetSizer( bSizer74 );
+	pnlConditionType4->Layout();
+	bSizer74->Fit( pnlConditionType4 );
+	bSizer521->Add( pnlConditionType4, 0, wxEXPAND | wxALL, 5 );
+
 	pnlConditionType0 = new wxPanel( pnlConditions, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxBoxSizer* bSizer581;
 	bSizer581 = new wxBoxSizer( wxHORIZONTAL );
@@ -848,7 +876,7 @@ mainForm::mainForm( wxWindow* parent, wxWindowID id, const wxString& title, cons
 	pnlConditions->SetSizer( bSizer512 );
 	pnlConditions->Layout();
 	bSizer512->Fit( pnlConditions );
-	nbkGameObject->AddPage( pnlConditions, wxT("Conditions"), false );
+	nbkGameObject->AddPage( pnlConditions, wxT("Conditions"), true );
 	pnlAnimation = new wxPanel( nbkGameObject, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxBoxSizer* bSizer62;
 	bSizer62 = new wxBoxSizer( wxVERTICAL );
