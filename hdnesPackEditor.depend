@@ -3951,7 +3951,7 @@
 	"coreData.h"
 	"main.h"
 
-1605194635 source:d:\work\hdnes\trunk\hdnespackeditor\condition.cpp
+1625744031 source:d:\work\hdnes\trunk\hdnespackeditor\condition.cpp
 	"condition.h"
 	"coreData.h"
 	"gameTile.h"
@@ -5164,7 +5164,7 @@
 1520441738 d:\work\include\wx\imagiff.h
 	"wx/image.h"
 
-1451764783 d:\work\include\sdl2\sdl.h
+1682258330 d:\work\include\sdl2\sdl.h
 	"SDL_main.h"
 	"SDL_stdinc.h"
 	"SDL_assert.h"
@@ -5176,31 +5176,38 @@
 	"SDL_error.h"
 	"SDL_events.h"
 	"SDL_filesystem.h"
-	"SDL_joystick.h"
 	"SDL_gamecontroller.h"
+	"SDL_guid.h"
 	"SDL_haptic.h"
+	"SDL_hidapi.h"
 	"SDL_hints.h"
+	"SDL_joystick.h"
 	"SDL_loadso.h"
 	"SDL_log.h"
 	"SDL_messagebox.h"
+	"SDL_metal.h"
 	"SDL_mutex.h"
 	"SDL_power.h"
 	"SDL_render.h"
 	"SDL_rwops.h"
+	"SDL_sensor.h"
+	"SDL_shape.h"
 	"SDL_system.h"
 	"SDL_thread.h"
 	"SDL_timer.h"
 	"SDL_version.h"
 	"SDL_video.h"
+	"SDL_locale.h"
+	"SDL_misc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451764783 d:\work\include\sdl2\sdl_main.h
+1682258329 d:\work\include\sdl2\sdl_main.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451764783 d:\work\include\sdl2\sdl_stdinc.h
+1682258329 d:\work\include\sdl2\sdl_stdinc.h
 	"SDL_config.h"
 	<sys/types.h>
 	<stdio.h>
@@ -5214,49 +5221,52 @@
 	<memory.h>
 	<string.h>
 	<strings.h>
+	<wchar.h>
 	<inttypes.h>
 	<stdint.h>
 	<ctype.h>
 	<math.h>
 	<float.h>
-	<iconv.h>
-	<sal.h>
-	"begin_code.h"
 	<alloca.h>
 	<malloc.h>
 	<malloc.h>
 	<malloc.h>
 	<stdlib.h>
+	<sal.h>
+	"begin_code.h"
 	"close_code.h"
 
-1451764783 d:\work\include\sdl2\sdl_config.h
+1682258329 d:\work\include\sdl2\sdl_config.h
 	"SDL_platform.h"
+	<winsdkver.h>
+	<sdkddkver.h>
 
-1451764783 d:\work\include\sdl2\sdl_platform.h
-	"AvailabilityMacros.h"
-	"TargetConditionals.h"
+1682258329 d:\work\include\sdl2\sdl_platform.h
+	<AvailabilityMacros.h>
+	<TargetConditionals.h>
 	<winapifamily.h>
 	"begin_code.h"
 	"close_code.h"
 
-1451764783 d:\work\include\sdl2\begin_code.h
+1682258330 d:\work\include\sdl2\begin_code.h
 
-1451764783 d:\work\include\sdl2\close_code.h
+1682258330 d:\work\include\sdl2\close_code.h
 
-1451764783 d:\work\include\sdl2\sdl_assert.h
-	"SDL_config.h"
+1682258330 d:\work\include\sdl2\sdl_assert.h
+	"SDL_stdinc.h"
 	"begin_code.h"
 	<signal.h>
 	"close_code.h"
 
-1451764783 d:\work\include\sdl2\sdl_atomic.h
+1682258330 d:\work\include\sdl2\sdl_atomic.h
 	"SDL_stdinc.h"
 	"SDL_platform.h"
 	"begin_code.h"
+	<sys/cpuinline.h>
 	<mbarrier.h>
 	"close_code.h"
 
-1451764783 d:\work\include\sdl2\sdl_audio.h
+1682258330 d:\work\include\sdl2\sdl_audio.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_endian.h"
@@ -5266,56 +5276,71 @@
 	"begin_code.h"
 	"close_code.h"
 
-1451764783 d:\work\include\sdl2\sdl_error.h
+1682258329 d:\work\include\sdl2\sdl_error.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451764783 d:\work\include\sdl2\sdl_endian.h
+1682258329 d:\work\include\sdl2\sdl_endian.h
 	"SDL_stdinc.h"
+	<intrin.h>
 	<endian.h>
+	<endian.h>
+	<sys/endian.h>
 	"begin_code.h"
 	"close_code.h"
 
-1451764783 d:\work\include\sdl2\sdl_mutex.h
+1682258329 d:\work\include\sdl2\sdl_mutex.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451764783 d:\work\include\sdl2\sdl_thread.h
+1682258330 d:\work\include\sdl2\sdl_thread.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_atomic.h"
 	"SDL_mutex.h"
-	"begin_code.h"
 	<process.h>
+	<process.h>
+	<stdlib.h>
+	"begin_code.h"
 	"close_code.h"
 
-1451764783 d:\work\include\sdl2\sdl_rwops.h
+1682258329 d:\work\include\sdl2\sdl_rwops.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451764783 d:\work\include\sdl2\sdl_clipboard.h
+1682258329 d:\work\include\sdl2\sdl_clipboard.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451764783 d:\work\include\sdl2\sdl_cpuinfo.h
+1682258329 d:\work\include\sdl2\sdl_cpuinfo.h
 	"SDL_stdinc.h"
 	<intrin.h>
 	<intrin.h>
+	<arm_neon.h>
 	<altivec.h>
-	<mmintrin.h>
+	<arm_neon.h>
+	<armintr.h>
+	<arm_neon.h>
+	<arm64intr.h>
+	<arm64_neon.h>
 	<mm3dnow.h>
+	<lsxintrin.h>
+	<lasxintrin.h>
+	<immintrin.h>
+	<mmintrin.h>
 	<xmmintrin.h>
 	<emmintrin.h>
+	<pmmintrin.h>
 	"begin_code.h"
 	"close_code.h"
 
-1451764783 d:\work\include\sdl2\sdl_events.h
+1682258329 d:\work\include\sdl2\sdl_events.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_video.h"
@@ -5329,7 +5354,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1451764783 d:\work\include\sdl2\sdl_video.h
+1682258330 d:\work\include\sdl2\sdl_video.h
 	"SDL_stdinc.h"
 	"SDL_pixels.h"
 	"SDL_rect.h"
@@ -5337,12 +5362,13 @@
 	"begin_code.h"
 	"close_code.h"
 
-1451764783 d:\work\include\sdl2\sdl_pixels.h
+1682258329 d:\work\include\sdl2\sdl_pixels.h
 	"SDL_stdinc.h"
+	"SDL_endian.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451764783 d:\work\include\sdl2\sdl_rect.h
+1682258329 d:\work\include\sdl2\sdl_rect.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_pixels.h"
@@ -5350,7 +5376,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1451764783 d:\work\include\sdl2\sdl_surface.h
+1682258329 d:\work\include\sdl2\sdl_surface.h
 	"SDL_stdinc.h"
 	"SDL_pixels.h"
 	"SDL_rect.h"
@@ -5359,11 +5385,11 @@
 	"begin_code.h"
 	"close_code.h"
 
-1451764783 d:\work\include\sdl2\sdl_blendmode.h
+1682258330 d:\work\include\sdl2\sdl_blendmode.h
 	"begin_code.h"
 	"close_code.h"
 
-1451764783 d:\work\include\sdl2\sdl_keyboard.h
+1682258329 d:\work\include\sdl2\sdl_keyboard.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_keycode.h"
@@ -5371,39 +5397,41 @@
 	"begin_code.h"
 	"close_code.h"
 
-1451764783 d:\work\include\sdl2\sdl_keycode.h
+1682258329 d:\work\include\sdl2\sdl_keycode.h
 	"SDL_stdinc.h"
 	"SDL_scancode.h"
 
-1451764783 d:\work\include\sdl2\sdl_scancode.h
+1682258329 d:\work\include\sdl2\sdl_scancode.h
 	"SDL_stdinc.h"
 
-1451764783 d:\work\include\sdl2\sdl_mouse.h
+1682258329 d:\work\include\sdl2\sdl_mouse.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_video.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451764783 d:\work\include\sdl2\sdl_joystick.h
+1682258329 d:\work\include\sdl2\sdl_joystick.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
+	"SDL_guid.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451764783 d:\work\include\sdl2\sdl_gamecontroller.h
+1682258329 d:\work\include\sdl2\sdl_gamecontroller.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_rwops.h"
+	"SDL_sensor.h"
 	"SDL_joystick.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451764783 d:\work\include\sdl2\sdl_quit.h
+1682258329 d:\work\include\sdl2\sdl_quit.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 
-1451764783 d:\work\include\sdl2\sdl_gesture.h
+1682258329 d:\work\include\sdl2\sdl_gesture.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_video.h"
@@ -5411,60 +5439,60 @@
 	"begin_code.h"
 	"close_code.h"
 
-1451764783 d:\work\include\sdl2\sdl_touch.h
+1682258330 d:\work\include\sdl2\sdl_touch.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_video.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451764783 d:\work\include\sdl2\sdl_filesystem.h
+1682258329 d:\work\include\sdl2\sdl_filesystem.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451764783 d:\work\include\sdl2\sdl_haptic.h
+1682258329 d:\work\include\sdl2\sdl_haptic.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_joystick.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451764783 d:\work\include\sdl2\sdl_hints.h
+1682258329 d:\work\include\sdl2\sdl_hints.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451764783 d:\work\include\sdl2\sdl_loadso.h
+1682258329 d:\work\include\sdl2\sdl_loadso.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451764783 d:\work\include\sdl2\sdl_log.h
+1682258329 d:\work\include\sdl2\sdl_log.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451764783 d:\work\include\sdl2\sdl_messagebox.h
+1682258329 d:\work\include\sdl2\sdl_messagebox.h
 	"SDL_stdinc.h"
 	"SDL_video.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451764783 d:\work\include\sdl2\sdl_power.h
+1682258329 d:\work\include\sdl2\sdl_power.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451764783 d:\work\include\sdl2\sdl_render.h
+1682258329 d:\work\include\sdl2\sdl_render.h
 	"SDL_stdinc.h"
 	"SDL_rect.h"
 	"SDL_video.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451764783 d:\work\include\sdl2\sdl_system.h
+1682258329 d:\work\include\sdl2\sdl_system.h
 	"SDL_stdinc.h"
 	"SDL_keyboard.h"
 	"SDL_render.h"
@@ -5472,13 +5500,13 @@
 	"begin_code.h"
 	"close_code.h"
 
-1451764783 d:\work\include\sdl2\sdl_timer.h
+1682258330 d:\work\include\sdl2\sdl_timer.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451764783 d:\work\include\sdl2\sdl_version.h
+1682258330 d:\work\include\sdl2\sdl_version.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
@@ -7222,7 +7250,7 @@
 1520441738 d:\work\include\wx\cocoa\mdi.h
 	"wx/frame.h"
 
-1604752180 d:\work\hdnes\trunk\hdnespackeditor\gametile.h
+1716435669 d:\work\hdnes\trunk\hdnespackeditor\gametile.h
 	"common.h"
 	"classList.h"
 	"condition.h"
@@ -7245,7 +7273,7 @@
 1561782682 d:\work\hdnes\trunk\hdnespackeditor\image.h
 	"common.h"
 
-1625718549 d:\work\hdnes\trunk\hdnespackeditor\hdnespackeditormainform.h
+1716436412 d:\work\hdnes\trunk\hdnespackeditor\hdnespackeditormainform.h
 	"common.h"
 	"mainForm.h"
 	"colourDialogClient.h"
@@ -7531,7 +7559,7 @@
 1604752360 d:\work\hdnes\trunk\hdnespackeditor\paletteswap.h
 	"common.h"
 
-1606287296 source:d:\work\hdnes\trunk\hdnespackeditor\gametile.cpp
+1716436195 source:d:\work\hdnes\trunk\hdnespackeditor\gametile.cpp
 	"common.h"
 	"coreData.h"
 	"gameObjNode.h"
@@ -7702,4 +7730,46 @@
 1606276175 d:\work\hdnes\trunk\hdnespackeditor\hdnespackeditorimagedialog.h
 	"mainForm.h"
 	"imageDialogClient.h"
+
+1682258326 d:\work\include\sdl2\sdl_guid.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1682258326 d:\work\include\sdl2\sdl_sensor.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1682258326 d:\work\include\sdl2\sdl_hidapi.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1682258326 d:\work\include\sdl2\sdl_metal.h
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1682258329 d:\work\include\sdl2\sdl_shape.h
+	"SDL_stdinc.h"
+	"SDL_pixels.h"
+	"SDL_rect.h"
+	"SDL_surface.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1682258326 d:\work\include\sdl2\sdl_locale.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1682258326 d:\work\include\sdl2\sdl_misc.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
 

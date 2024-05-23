@@ -831,6 +831,7 @@ void hdnesPackEditormainForm::gameObjTItemSelected( wxTreeEvent& event ){
     gameObjSelectedTiles.clear();
     gameObjconditionTiles.clear();
     editCondition = false;
+    isAddingAddition = false;
     refreshNode();
 }
 
@@ -1111,6 +1112,10 @@ void hdnesPackEditormainForm::gameObjsRawRUp( wxMouseEvent& event ){
             menu.Append(GAME_OBJ_PNL_CONFIRM_CONDITION, wxT("Confirm changes"));
             menu.Append(GAME_OBJ_PNL_CANCEL_CONDITION, wxT("Cancel changes"));
         }
+        else if(isAddingAddition){
+            menu.Append(GAME_OBJ_PNL_CONFIRM_ADDITION, wxT("Confirm tile placement"));
+            menu.Append(GAME_OBJ_PNL_CANCEL_ADDITION, wxT("Cancel adding tile"));
+        }
         else{
             if (wxTheClipboard->IsSupported( wxDF_TEXT )){
                 wxTextDataObject txt;
@@ -1185,7 +1190,10 @@ void hdnesPackEditormainForm::gameObjsRawRUp( wxMouseEvent& event ){
                         submenu2->Append(GAME_OBJ_PNL_VFLIP2, wxT("Flip direction and location vertically"));
                     }
                     menu.AppendSubMenu(submenu2, wxT("Flip tiles"));
-
+                    if(gameObjSelectedTiles.size() == 1){
+                        if(!(data->tiles[gameObjSelectedTiles[0]].isAddition))
+                            menu.Append(GAME_OBJ_PNL_ADD_ADDITION, wxT("Add additional tile"));
+                    }
                 }
             }
             else{
@@ -1202,7 +1210,7 @@ void hdnesPackEditormainForm::gameObjsRawRUp( wxMouseEvent& event ){
 void hdnesPackEditormainForm::gameObjsRawMenu( wxCommandEvent& event ){
     string copyContent = "";
     gameObjNode* ndata;
-    gameTile t;
+    gameTile t, g;
     condition c;
     int clickedX;
     int clickedY;
@@ -1221,7 +1229,6 @@ void hdnesPackEditormainForm::gameObjsRawMenu( wxCommandEvent& event ){
             //read tile string into tiles and add to the current object
             vector<string> tileLines;
             vector<string> tileDetails;
-            gameTile g;
 
             gameObjPasteData.clearAllTiles();
             main::split(txt.GetText().ToStdString(), '\n', tileLines);
@@ -1249,7 +1256,7 @@ void hdnesPackEditormainForm::gameObjsRawMenu( wxCommandEvent& event ){
                     gameObjPasteData.addTile(g);
                 }
             }
-            drawGameObjPasteTiles();
+            drawGameObjEdits();
         }
         break;
     case GAME_OBJ_PNL_CONFIRM_PASTE:
@@ -1482,6 +1489,27 @@ void hdnesPackEditormainForm::gameObjsRawMenu( wxCommandEvent& event ){
             }
         }
         coreData::cData->dataChanged();
+        break;
+    case GAME_OBJ_PNL_ADD_ADDITION:
+        isAddingAddition = true;
+        additionSourceIdx = gameObjSelectedTiles[0];
+        drawGameObjEdits();
+        break;
+    case GAME_OBJ_PNL_CONFIRM_ADDITION:
+        ndata = (gameObjNode*)(treeGameObjs->GetItemData(tItmGameObjMenu));
+        g.isAddition = true;
+        g.linkedTileIdx = additionSourceIdx;
+        g.objCoordX = gameObjRawCurrPos.x;
+        g.objCoordY = gameObjRawCurrPos.y;
+        g.vFlip = ndata->tiles[additionSourceIdx].vFlip;
+        g.hFlip = ndata->tiles[additionSourceIdx].hFlip;
+        ndata->addTile(g);
+        refreshGameObj();
+        coreData::cData->dataChanged();
+        isAddingAddition = false;
+        break;
+    case GAME_OBJ_PNL_CANCEL_ADDITION:
+        isAddingAddition = false;
         break;
     default:
 
@@ -1993,23 +2021,38 @@ void hdnesPackEditormainForm::drawGameObj(){
         gameObjNewImage.SetRGB(wxRect(drawX * coreData::cData->scale, drawY * coreData::cData->scale, replaceSize, replaceSize), coreData::cData->palette[ndata->bgColour].Red(), coreData::cData->palette[ndata->bgColour].Green(), coreData::cData->palette[ndata->bgColour].Blue());
     }
     //draw tiles in reverse order
+    wxRect r;
+    r.SetX(0);
+    r.SetY(0);
+    r.SetWidth(8);
+    r.SetHeight(8);
     for(int i = ndata->tiles.size() - 1; i >= 0; --i){
         drawX = ndata->tiles[i].objCoordX - ndata->x1;
         drawY = ndata->tiles[i].objCoordY - ndata->y1;
         gameObjBaseTile.InitAlpha();
         memset(gameObjBaseTile.GetAlpha(), 0, 64);
-        if(coreData::cData->isCHRROM){
-            memAddress = ndata->tiles[i].id.id * 16;
-            paintTile(gameObjBaseTile, coreData::cData->romData + memAddress, 0, 0, ndata->tiles[i].hFlip, ndata->tiles[i].vFlip,
-                    coreData::cData->palette[ndata->tiles[i].id.palette[1]],
-                    coreData::cData->palette[ndata->tiles[i].id.palette[2]],
-                    coreData::cData->palette[ndata->tiles[i].id.palette[3]]);
+        if(!ndata->tiles[i].isAddition){
+            if(coreData::cData->isCHRROM){
+                memAddress = ndata->tiles[i].id.id * 16;
+                paintTile(gameObjBaseTile, coreData::cData->romData + memAddress, 0, 0, ndata->tiles[i].hFlip, ndata->tiles[i].vFlip,
+                        coreData::cData->palette[ndata->tiles[i].id.palette[1]],
+                        coreData::cData->palette[ndata->tiles[i].id.palette[2]],
+                        coreData::cData->palette[ndata->tiles[i].id.palette[3]]);
+            }
+            else{
+                paintTile(gameObjBaseTile, ndata->tiles[i].id.rawData, 0, 0, ndata->tiles[i].hFlip, ndata->tiles[i].vFlip,
+                        coreData::cData->palette[ndata->tiles[i].id.palette[1]],
+                        coreData::cData->palette[ndata->tiles[i].id.palette[2]],
+                        coreData::cData->palette[ndata->tiles[i].id.palette[3]]);
+            }
         }
         else{
-            paintTile(gameObjBaseTile, ndata->tiles[i].id.rawData, 0, 0, ndata->tiles[i].hFlip, ndata->tiles[i].vFlip,
-                    coreData::cData->palette[ndata->tiles[i].id.palette[1]],
-                    coreData::cData->palette[ndata->tiles[i].id.palette[2]],
-                    coreData::cData->palette[ndata->tiles[i].id.palette[3]]);
+            gameObjBaseTile.SetRGB(r, 255, 255, 0);
+            for(int j = 0; j < 8; j++){
+                for(int k = 0; k < 8; k++){
+                    gameObjBaseTile.SetAlpha(j, k, 255);
+                }
+            }
         }
         gameObjBaseTile.ConvertAlphaToMask(64);
         gameObjRawImage.Paste(gameObjBaseTile, drawX, drawY);
@@ -2032,22 +2075,24 @@ void hdnesPackEditormainForm::drawGameObj(){
 }
 
 void hdnesPackEditormainForm::drawGameObjEdits(){
-    if(gameObjPasteData.tiles.size() == 0){
-        drawGameObjSelection();
-    }
-    else{
-        drawGameObjPasteTiles();
-    }
-    showGameObj(gameObjRawImage2, gameObjNewImage2, gameObjRawPasteX, gameObjRawPasteY);
-}
-
-void hdnesPackEditormainForm::drawGameObjPasteTiles(){
     gameObjNode* ndata = (gameObjNode*)(treeGameObjs->GetItemData(tItmGameObjMenu));
     //cal image size
-    int pasteX1 = min(gameObjPasteData.x1 + gameObjRawCurrPos.x, ndata->x1);
-    int pasteX2 = max(gameObjPasteData.x2 + gameObjRawCurrPos.x, ndata->x2);
-    int pasteY1 = min(gameObjPasteData.y1 + gameObjRawCurrPos.y, ndata->y1);
-    int pasteY2 = max(gameObjPasteData.y2 + gameObjRawCurrPos.y, ndata->y2);
+    int pasteX1;
+    int pasteX2;
+    int pasteY1;
+    int pasteY2;
+    if(gameObjPasteData.tiles.size() == 0){
+        pasteX1 = min(gameObjRawCurrPos.x, ndata->x1);
+        pasteX2 = max(8 + gameObjRawCurrPos.x, ndata->x2);
+        pasteY1 = min(gameObjRawCurrPos.y, ndata->y1);
+        pasteY2 = max(8 + gameObjRawCurrPos.y, ndata->y2);
+    }
+    else{
+        pasteX1 = min(gameObjPasteData.x1 + gameObjRawCurrPos.x, ndata->x1);
+        pasteX2 = max(gameObjPasteData.x2 + gameObjRawCurrPos.x, ndata->x2);
+        pasteY1 = min(gameObjPasteData.y1 + gameObjRawCurrPos.y, ndata->y1);
+        pasteY2 = max(gameObjPasteData.y2 + gameObjRawCurrPos.y, ndata->y2);
+    }
     int pasteWidth = pasteX2 - pasteX1;
     int pasteHeight = pasteY2 - pasteY1;
 
@@ -2064,90 +2109,93 @@ void hdnesPackEditormainForm::drawGameObjPasteTiles(){
         gameObjNewImage2.Paste(gameObjNewImage, (ndata->x1 - pasteX1) * coreData::cData->scale, (ndata->y1 - pasteY1) * coreData::cData->scale);
     }
 
-    //draw paste tiles
-    Uint32 memAddress;
-    int drawX;
-    int drawY;
-    for(int i = 0; i < gameObjPasteData.tiles.size(); ++i){
-        drawX = gameObjPasteData.tiles[i].objCoordX - pasteX1 + gameObjRawCurrPos.x;
-        drawY = gameObjPasteData.tiles[i].objCoordY - pasteY1 + gameObjRawCurrPos.y;
-        if(coreData::cData->isCHRROM){
-            memAddress = gameObjPasteData.tiles[i].id.id * 16;
-            paintTile(gameObjRawImage2, coreData::cData->romData + memAddress, drawX, drawY, gameObjPasteData.tiles[i].hFlip, gameObjPasteData.tiles[i].vFlip,
-                    coreData::cData->palette[gameObjPasteData.tiles[i].id.palette[1]],
-                    coreData::cData->palette[gameObjPasteData.tiles[i].id.palette[2]],
-                    coreData::cData->palette[gameObjPasteData.tiles[i].id.palette[3]]);
-        }
-        else{
-            paintTile(gameObjRawImage2, gameObjPasteData.tiles[i].id.rawData, drawX, drawY, gameObjPasteData.tiles[i].hFlip, gameObjPasteData.tiles[i].vFlip,
-                    coreData::cData->palette[gameObjPasteData.tiles[i].id.palette[1]],
-                    coreData::cData->palette[gameObjPasteData.tiles[i].id.palette[2]],
-                    coreData::cData->palette[gameObjPasteData.tiles[i].id.palette[3]]);
+    if(gameObjPasteData.tiles.size() > 0){
+         //draw paste tiles
+        Uint32 memAddress;
+        int drawX;
+        int drawY;
+        for(int i = 0; i < gameObjPasteData.tiles.size(); ++i){
+            drawX = gameObjPasteData.tiles[i].objCoordX - pasteX1 + gameObjRawCurrPos.x;
+            drawY = gameObjPasteData.tiles[i].objCoordY - pasteY1 + gameObjRawCurrPos.y;
+            if(coreData::cData->isCHRROM){
+                memAddress = gameObjPasteData.tiles[i].id.id * 16;
+                paintTile(gameObjRawImage2, coreData::cData->romData + memAddress, drawX, drawY, gameObjPasteData.tiles[i].hFlip, gameObjPasteData.tiles[i].vFlip,
+                        coreData::cData->palette[gameObjPasteData.tiles[i].id.palette[1]],
+                        coreData::cData->palette[gameObjPasteData.tiles[i].id.palette[2]],
+                        coreData::cData->palette[gameObjPasteData.tiles[i].id.palette[3]]);
+            }
+            else{
+                paintTile(gameObjRawImage2, gameObjPasteData.tiles[i].id.rawData, drawX, drawY, gameObjPasteData.tiles[i].hFlip, gameObjPasteData.tiles[i].vFlip,
+                        coreData::cData->palette[gameObjPasteData.tiles[i].id.palette[1]],
+                        coreData::cData->palette[gameObjPasteData.tiles[i].id.palette[2]],
+                        coreData::cData->palette[gameObjPasteData.tiles[i].id.palette[3]]);
+            }
         }
     }
+    else if(isAddingAddition){
+        //draw addition tile
+        wxRect r;
+        r.SetX(gameObjRawCurrPos.x - pasteX1);
+        r.SetY(gameObjRawCurrPos.y - pasteY1);
+        r.SetWidth(8);
+        r.SetHeight(8);
+        gameObjRawImage2.SetRGB(r, 255, 255, 0);
+    }
+
     //scale up
     gameObjRawImage2 = gameObjRawImage2.Scale(pasteWidth * gameObjZoom, pasteHeight * gameObjZoom);
     gameObjNewImage2 = gameObjNewImage2.Scale(pasteWidth * gameObjZoom, pasteHeight * gameObjZoom);
 
-    //draw outline of paste tiles
+    //draw outline
     wxPoint pt;
     wxPoint pt2;
     wxPoint tileBoxSize;
     tileBoxSize.x = gameObjTileSize - 1;
     tileBoxSize.y = gameObjTileSize - 1;
-    for(int i = 0; i < gameObjPasteData.tiles.size(); ++i){
-        pt.x = (gameObjPasteData.tiles[i].objCoordX - pasteX1 + gameObjRawCurrPos.x) * gameObjZoom;
-        pt.y = (gameObjPasteData.tiles[i].objCoordY - pasteY1 + gameObjRawCurrPos.y) * gameObjZoom;
-        pt2 = pt;
-        ++(pt2.x);
-        ++(pt2.y);
-        main::drawRect(gameObjRawImage2, pt2, tileBoxSize, wxColour(0, 0, 0));
-        main::drawRect(gameObjRawImage2, pt, tileBoxSize, wxColour(255, 255, 255));
+    if(gameObjPasteData.tiles.size() > 0){
+        //draw outline of paste tiles
+        for(int i = 0; i < gameObjPasteData.tiles.size(); ++i){
+            pt.x = (gameObjPasteData.tiles[i].objCoordX - pasteX1 + gameObjRawCurrPos.x) * gameObjZoom;
+            pt.y = (gameObjPasteData.tiles[i].objCoordY - pasteY1 + gameObjRawCurrPos.y) * gameObjZoom;
+            pt2 = pt;
+            ++(pt2.x);
+            ++(pt2.y);
+            main::drawRect(gameObjRawImage2, pt2, tileBoxSize, wxColour(0, 0, 0));
+            main::drawRect(gameObjRawImage2, pt, tileBoxSize, wxColour(255, 255, 255));
+        }
+    }
+    else{
+        //draw outline of selected tiles
+        for(int i = 0; i < gameObjSelectedTiles.size(); ++i){
+            pt.x = (ndata->tiles[gameObjSelectedTiles[i]].objCoordX - pasteX1) * gameObjZoom;
+            pt.y = (ndata->tiles[gameObjSelectedTiles[i]].objCoordY - pasteY1) * gameObjZoom;
+            pt2 = pt;
+            ++(pt2.x);
+            ++(pt2.y);
+            main::drawRect(gameObjRawImage2, pt2, tileBoxSize, wxColour(0, 0, 0));
+            main::drawRect(gameObjRawImage2, pt, tileBoxSize, wxColour(255, 255, 255));
+            main::drawRect(gameObjNewImage2, pt2, tileBoxSize, wxColour(0, 0, 0));
+            main::drawRect(gameObjNewImage2, pt, tileBoxSize, wxColour(255, 255, 255));
+        }
+        if(editCondition){
+            for(int i = 0; i < gameObjconditionTiles.size(); ++i){
+                pt.x = (ndata->tiles[gameObjconditionTiles[i]].objCoordX - pasteX1) * gameObjZoom;
+                pt.y = (ndata->tiles[gameObjconditionTiles[i]].objCoordY - pasteY1) * gameObjZoom;
+                pt2 = pt;
+                ++(pt2.x);
+                ++(pt2.y);
+                main::drawRect(gameObjRawImage2, pt2, tileBoxSize, wxColour(0, 100, 100));
+                main::drawRect(gameObjRawImage2, pt, tileBoxSize, wxColour(0, 255, 255));
+                main::drawRect(gameObjNewImage2, pt2, tileBoxSize, wxColour(0, 100, 100));
+                main::drawRect(gameObjNewImage2, pt, tileBoxSize, wxColour(0, 255, 255));
+            }
+        }
     }
 
     gameObjRawPasteX = pasteX1 * gameObjZoom + (pnlGameObjRaw->GetSize().GetWidth() / 2) - gameObjViewCentreX;
     gameObjRawPasteY = pasteY1 * gameObjZoom + (pnlGameObjRaw->GetSize().GetHeight() / 2) - gameObjViewCentreY;
 
-}
-
-void hdnesPackEditormainForm::drawGameObjSelection(){
-    gameObjNode* ndata = (gameObjNode*)(treeGameObjs->GetItemData(tItmGameObjMenu));
-    gameObjRawImage2 = gameObjRawImage.Scale(gameObjRawImage.GetWidth() * gameObjZoom, gameObjRawImage.GetHeight() * gameObjZoom);
-    gameObjNewImage2 = gameObjNewImage.Scale(gameObjRawImage.GetWidth() * gameObjZoom, gameObjRawImage.GetHeight() * gameObjZoom);
-
-    //draw outline of selected tiles
-    wxPoint pt;
-    wxPoint pt2;
-    wxPoint tileBoxSize;
-    tileBoxSize.x = gameObjTileSize - 1;
-    tileBoxSize.y = gameObjTileSize - 1;
-    for(int i = 0; i < gameObjSelectedTiles.size(); ++i){
-        pt.x = (ndata->tiles[gameObjSelectedTiles[i]].objCoordX - ndata->x1) * gameObjZoom;
-        pt.y = (ndata->tiles[gameObjSelectedTiles[i]].objCoordY - ndata->y1) * gameObjZoom;
-        pt2 = pt;
-        ++(pt2.x);
-        ++(pt2.y);
-        main::drawRect(gameObjRawImage2, pt2, tileBoxSize, wxColour(0, 0, 0));
-        main::drawRect(gameObjRawImage2, pt, tileBoxSize, wxColour(255, 255, 255));
-        main::drawRect(gameObjNewImage2, pt2, tileBoxSize, wxColour(0, 0, 0));
-        main::drawRect(gameObjNewImage2, pt, tileBoxSize, wxColour(255, 255, 255));
-    }
-    if(editCondition){
-        for(int i = 0; i < gameObjconditionTiles.size(); ++i){
-            pt.x = (ndata->tiles[gameObjconditionTiles[i]].objCoordX - ndata->x1) * gameObjZoom;
-            pt.y = (ndata->tiles[gameObjconditionTiles[i]].objCoordY - ndata->y1) * gameObjZoom;
-            pt2 = pt;
-            ++(pt2.x);
-            ++(pt2.y);
-            main::drawRect(gameObjRawImage2, pt2, tileBoxSize, wxColour(0, 100, 100));
-            main::drawRect(gameObjRawImage2, pt, tileBoxSize, wxColour(0, 255, 255));
-            main::drawRect(gameObjNewImage2, pt2, tileBoxSize, wxColour(0, 100, 100));
-            main::drawRect(gameObjNewImage2, pt, tileBoxSize, wxColour(0, 255, 255));
-        }
-    }
-
-    gameObjRawPasteX = ndata->x1 * gameObjZoom + (pnlGameObjRaw->GetSize().GetWidth() / 2) - gameObjViewCentreX;
-    gameObjRawPasteY = ndata->y1 * gameObjZoom + (pnlGameObjRaw->GetSize().GetHeight() / 2) - gameObjViewCentreY;
+    showGameObj(gameObjRawImage2, gameObjNewImage2, gameObjRawPasteX, gameObjRawPasteY);
 }
 
 void hdnesPackEditormainForm::adjustGameObjSize(){
@@ -2256,7 +2304,7 @@ void hdnesPackEditormainForm::gameObjBGColour( wxCommandEvent& event ){
 void hdnesPackEditormainForm::gameObjsRawMove( wxMouseEvent& event ){
     if(getGameObjsSelectedObjectTreeNode()){
         gameObjRawCurrPos = convertGameObjRawPosition(event.GetPosition());
-        if(gameObjPasteData.tiles.size() > 0){
+        if(gameObjPasteData.tiles.size() > 0 or isAddingAddition){
             drawGameObjEdits();
         }
         else if(gameObjClicked){
@@ -2281,7 +2329,7 @@ wxPoint hdnesPackEditormainForm::convertGameObjRawPosition(wxPoint pos){
 void hdnesPackEditormainForm::gameObjsRawEnter( wxMouseEvent& event ){
     if(getGameObjsSelectedObjectTreeNode() && !event.LeftIsDown()){
         gameObjClicked = false;
-        drawGameObjSelection();
+        drawGameObjEdits();
     }
 }
 
@@ -2294,7 +2342,7 @@ void hdnesPackEditormainForm::gameObjsRawLDown( wxMouseEvent& event ){
     gameObjLDownPos = event.GetPosition();
     gameObjLCurrPos = gameObjLDownPos;
     gameObjClicked = true;
-    drawGameObjSelection();
+    drawGameObjEdits();
 }
 
 void hdnesPackEditormainForm::gameObjsRawLUp( wxMouseEvent& event ){
@@ -2529,12 +2577,14 @@ void hdnesPackEditormainForm::removeChildGameObjImage(wxTreeItemId item, int ind
 void hdnesPackEditormainForm::removeChildGameObjItemImage(wxTreeItemId item, int index){
     gameObjNode* node = (gameObjNode*)(treeGameObjs->GetItemData(item));
     for(int i = 0; i < node->tiles.size(); ++i){
-        if(node->tiles[i].aniFrames[0].hasReplacement){
-            if(node->tiles[i].aniFrames[0].img > index){
-                node->tiles[i].aniFrames[0].img--;
-            }
-            else if(node->tiles[i].aniFrames[0].img == index){
-                node->tiles[i].aniFrames[0].hasReplacement = false;
+        for(int j = 0; j < node->tiles[i].aniFrames.size(); j++){
+            if(node->tiles[i].aniFrames[j].hasReplacement){
+                if(node->tiles[i].aniFrames[j].img > index){
+                    node->tiles[i].aniFrames[j].img--;
+                }
+                else if(node->tiles[i].aniFrames[j].img == index){
+                    node->tiles[i].aniFrames[j].hasReplacement = false;
+                }
             }
         }
     }

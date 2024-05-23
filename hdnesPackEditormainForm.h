@@ -27,6 +27,9 @@
 #define GAME_OBJ_PNL_GROUP_CONDITION    13
 #define GAME_OBJ_PNL_HFLIP2             14
 #define GAME_OBJ_PNL_VFLIP2             15
+#define GAME_OBJ_PNL_ADD_ADDITION       16
+#define GAME_OBJ_PNL_CONFIRM_ADDITION   17
+#define GAME_OBJ_PNL_CANCEL_ADDITION    18
 
 #define GAME_OBJ_PNL_PALETTE_SELECT_OFFSET    100
 #define GAME_OBJ_PNL_PALETTE_SELECT_OFFSET2   200
@@ -239,6 +242,8 @@ class hdnesPackEditormainForm : public mainForm, public colourDialogClient, publ
         int gameObjZoom;
         wxColor gameObjBlankColour;
         gameObjNode gameObjPasteData;
+        bool isAddingAddition;
+        int additionSourceIdx;
 
         wxPoint gameObjRawCurrPos;
         int gameObjectGenImageCnt;
@@ -313,8 +318,6 @@ class hdnesPackEditormainForm : public mainForm, public colourDialogClient, publ
         void drawGameObj();
         void adjustGameObjSize();
         void drawGameObjEdits();
-        void drawGameObjPasteTiles();
-        void drawGameObjSelection();
         void showGameObj(wxImage& displayImg, wxImage& displayImg2, int x, int y);
         void setReplacement(int imageID, int x, int y);
         void findGameObjNotUniqueTile();

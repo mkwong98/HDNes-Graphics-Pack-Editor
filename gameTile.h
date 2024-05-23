@@ -30,6 +30,8 @@ class gameTile
         bool markForDelete;
         bool isUnique;
 
+        bool isAddition;
+        int linkedTileIdx;
 
         bool isDefault;
         vector<condition> conditions;

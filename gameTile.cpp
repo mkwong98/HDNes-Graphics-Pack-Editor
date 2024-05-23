@@ -15,6 +15,9 @@ gameTile::gameTile()
     r.y = 0;
     r.brightness = 0;
 
+    isAddition = false;
+    linkedTileIdx = 0;
+
     aniFrames.push_back(r);
     markForDelete = false;
 }
@@ -178,6 +181,8 @@ gameTile gameTile::clone(){
     c.objCoordY = objCoordY;
     c.hFlip = hFlip;
     c.vFlip = vFlip;
+    c.isAddition = isAddition;
+    c.linkedTileIdx = linkedTileIdx;
     c.aniFrames.clear();
     for(int i = 0; i < aniFrames.size(); i++){
         c.aniFrames.push_back(aniFrames[i]);
