@@ -1305,6 +1305,20 @@ void hdnesPackEditormainForm::gameObjsRawMenu( wxCommandEvent& event ){
         ndata = (gameObjNode*)(treeGameObjs->GetItemData(tItmGameObjMenu));
         for(int k = 0; k < gameObjSelectedTiles.size(); ++k){
             ndata->tiles[gameObjSelectedTiles[k]].markForDelete = true;
+            //delete linked tiles too
+            for(int j = 0; j < ndata->tiles.size(); ++j){
+                if(ndata->tiles[j].isAddition && ndata->tiles[j].linkedTileIdx == gameObjSelectedTiles[k]){
+                    ndata->tiles[j].markForDelete = true;
+                }
+            }
+        }
+        //update link idx in additional tiles
+        for(int k = 0; k < ndata->tiles.size(); ++k){
+            int oldIdx = ndata->tiles[k].linkedTileIdx;
+            ndata->tiles[k].linkedTileIdx = 0;
+            for(int j = 0; j < oldIdx; ++j){
+                if(!ndata->tiles[j].markForDelete) ndata->tiles[k].linkedTileIdx++;
+            }
         }
         int i;
         i = 0;
@@ -2174,9 +2188,29 @@ void hdnesPackEditormainForm::drawGameObjEdits(){
             ++(pt2.y);
             main::drawRect(gameObjRawImage2, pt2, tileBoxSize, wxColour(0, 0, 0));
             main::drawRect(gameObjRawImage2, pt, tileBoxSize, wxColour(255, 255, 255));
-            main::drawRect(gameObjNewImage2, pt2, tileBoxSize, wxColour(0, 0, 0));
-            main::drawRect(gameObjNewImage2, pt, tileBoxSize, wxColour(255, 255, 255));
+            //draw outline for linked addition tiles
+            for(int j = 0; j < ndata->tiles.size(); ++j){
+                if(ndata->tiles[j].isAddition && ndata->tiles[j].linkedTileIdx == gameObjSelectedTiles[i]){
+                    pt.x = (ndata->tiles[j].objCoordX - pasteX1) * gameObjZoom;
+                    pt.y = (ndata->tiles[j].objCoordY - pasteY1) * gameObjZoom;
+                    pt2 = pt;
+                    ++(pt2.x);
+                    ++(pt2.y);
+                    main::drawRect(gameObjRawImage2, pt2, tileBoxSize, wxColour(255, 0, 0));
+                    main::drawRect(gameObjRawImage2, pt, tileBoxSize, wxColour(255, 0, 0));
+                }
+            }
+            if(ndata->tiles[gameObjSelectedTiles[i]].isAddition){
+                pt.x = (ndata->tiles[ndata->tiles[gameObjSelectedTiles[i]].linkedTileIdx].objCoordX - pasteX1) * gameObjZoom;
+                pt.y = (ndata->tiles[ndata->tiles[gameObjSelectedTiles[i]].linkedTileIdx].objCoordY - pasteY1) * gameObjZoom;
+                pt2 = pt;
+                ++(pt2.x);
+                ++(pt2.y);
+                main::drawRect(gameObjRawImage2, pt2, tileBoxSize, wxColour(255, 255, 0));
+                main::drawRect(gameObjRawImage2, pt, tileBoxSize, wxColour(255, 255, 128));
+            }
         }
+
         if(editCondition){
             for(int i = 0; i < gameObjconditionTiles.size(); ++i){
                 pt.x = (ndata->tiles[gameObjconditionTiles[i]].objCoordX - pasteX1) * gameObjZoom;
@@ -2186,8 +2220,6 @@ void hdnesPackEditormainForm::drawGameObjEdits(){
                 ++(pt2.y);
                 main::drawRect(gameObjRawImage2, pt2, tileBoxSize, wxColour(0, 100, 100));
                 main::drawRect(gameObjRawImage2, pt, tileBoxSize, wxColour(0, 255, 255));
-                main::drawRect(gameObjNewImage2, pt2, tileBoxSize, wxColour(0, 100, 100));
-                main::drawRect(gameObjNewImage2, pt, tileBoxSize, wxColour(0, 255, 255));
             }
         }
     }
