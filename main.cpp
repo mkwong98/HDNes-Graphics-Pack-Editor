@@ -22,6 +22,13 @@ string main::intToHex(int value){
     return stream.str();
 }
 
+string main::u32ToHex(Uint32 value){
+    stringstream stream;
+    stream << std::setfill('0') << std::setw(8);
+    stream << std::hex << value;
+    return stream.str();
+}
+
 string main::intToStr(int value){
     stringstream stream;
     stream << value;

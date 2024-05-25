@@ -15,6 +15,7 @@ public:
     static hdnesPackEditormainForm* mForm;
     static string exeDir;
     static string intToHex(int value);
+    static string u32ToHex(Uint32 value);
     static string intToStr(int value);
     static string floatToStr(float value);
     static string paletteToStr(vector<array<Uint8, 4>> p);

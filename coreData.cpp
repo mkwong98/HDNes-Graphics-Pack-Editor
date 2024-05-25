@@ -560,6 +560,7 @@ void coreData::genPackData(){
 
 	inifile << "#editorSection\n";
     main::mForm->genGameObjsConditionPack(inifile);
+    main::mForm->genGameObjsAdditionPack(inifile);
     main::mForm->genGameObjsTilePack(inifile, true);
     main::mForm->genGameObjsTilePack(inifile, false);
 	inifile << "#endEditorSection\n";

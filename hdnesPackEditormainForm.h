@@ -264,6 +264,7 @@ class hdnesPackEditormainForm : public mainForm, public colourDialogClient, publ
         int conditionGameObjTileX;
         int conditionGameObjTileY;
         int conditionCounter;
+        int additionCounter;
         wxImage gameObjImageWithSelection;
         wxImage gameObjBaseTile;
         wxImage gameObjBaseTileNew;
@@ -294,6 +295,8 @@ class hdnesPackEditormainForm : public mainForm, public colourDialogClient, publ
         void genGameObjsConditionPack(fstream& file);
         void genChildGameObjsConditionPack(fstream& file, wxTreeItemId item);
         void genGameObjItemConditionPack(fstream& file, wxTreeItemId item);
+        void genGameObjsAdditionPack(fstream& file);
+        void genGameObjItemAdditionPack(fstream& file, wxTreeItemId item);
         void genGameObjsTilePack(fstream& file, bool withCondition);
         void genChildGameObjsTilePack(fstream& file, wxTreeItemId item, bool withCondition);
         void genGameObjItemTilePack(fstream& file, wxTreeItemId item, bool withCondition);

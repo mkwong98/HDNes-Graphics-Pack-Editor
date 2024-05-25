@@ -93,6 +93,10 @@ void gameTile::load(fstream& file){
                 hFlip = (tailStrs[0] == "Y");
                 vFlip = (tailStrs[1] == "Y");
             }
+            else if(lineHdr == "<isAddition>"){
+                isAddition = (tailStrs[0] == "Y");
+                linkedTileIdx = atoi(tailStrs[1].c_str());
+            }
             else if(lineHdr == "<replacement>"){
                 aniFrames[0].hasReplacement = (tailStrs[0] == "Y");
                 isDefault = (tailStrs[1] == "Y");
@@ -141,6 +145,7 @@ void gameTile::save(fstream& file){
     id.save(file);
     file << "<objCoord>" << objCoordX << "," << objCoordY << "\n";
     file << "<flip>" << (hFlip ? "Y" : "N") << "," << (vFlip ? "Y" : "N") << "\n";
+    file << "<isAddition>" << (isAddition ? "Y" : "N") << "," << linkedTileIdx << "\n";
     file << "<replacement>" << (aniFrames[0].hasReplacement ? "Y" : "N")
                      << "," << (isDefault ? "Y" : "N")
                      << "," << aniFrames[0].img

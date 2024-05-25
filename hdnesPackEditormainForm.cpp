@@ -1511,6 +1511,7 @@ void hdnesPackEditormainForm::gameObjsRawMenu( wxCommandEvent& event ){
         break;
     case GAME_OBJ_PNL_CONFIRM_ADDITION:
         ndata = (gameObjNode*)(treeGameObjs->GetItemData(tItmGameObjMenu));
+        g.id.readID("00000000000000000000000000000000", true);
         g.isAddition = true;
         g.linkedTileIdx = additionSourceIdx;
         g.objCoordX = gameObjRawCurrPos.x;
@@ -2686,6 +2687,36 @@ void hdnesPackEditormainForm::genGameObjItemConditionPack(fstream& file, wxTreeI
     }
     genChildGameObjsConditionPack(file, item);
 }
+
+void hdnesPackEditormainForm::genGameObjsAdditionPack(fstream& file){
+    additionCounter = 0;
+    genGameObjItemAdditionPack(file, tItmGameObjRoot);
+}
+
+void hdnesPackEditormainForm::genGameObjItemAdditionPack(fstream& file, wxTreeItemId item){
+    gameObjNode* node = (gameObjNode*)(treeGameObjs->GetItemData(item));
+    if(node->nodeType == GAME_OBJ_NODE_TYPE_OBJECT){
+        for(int i = 0; i < node->tiles.size(); ++i){
+            if(node->tiles[i].isAddition){
+                node->tiles[i].id.readPalette(main::u32ToHex(0xFF400000 + additionCounter));
+                file << "<addition>" << node->tiles[node->tiles[i].linkedTileIdx].id.writeID(coreData::cData->verNo >= 103) << "," << node->tiles[node->tiles[i].linkedTileIdx].id.writePalette() << ",";
+                file << ((node->tiles[node->tiles[i].linkedTileIdx].hFlip ? -1 : 1) * (node->tiles[i].objCoordX - node->tiles[node->tiles[i].linkedTileIdx].objCoordX)) << ",";
+                file << ((node->tiles[node->tiles[i].linkedTileIdx].vFlip ? -1 : 1) * (node->tiles[i].objCoordY - node->tiles[node->tiles[i].linkedTileIdx].objCoordY)) << ",";
+                file << node->tiles[i].id.writeID(coreData::cData->verNo >= 103) << "," << node->tiles[i].id.writePalette() << "\n";
+                additionCounter++;
+            }
+        }
+    }
+    else if(node->nodeType == GAME_OBJ_NODE_TYPE_ROOT || node->nodeType == GAME_OBJ_NODE_TYPE_GROUP){
+        wxTreeItemIdValue cookie = 0;
+        wxTreeItemId child = treeGameObjs->GetFirstChild(item, cookie);
+        while(child.IsOk()){
+            genGameObjItemAdditionPack(file, child);
+            child = treeGameObjs->GetNextSibling(child);
+        }
+    }
+}
+
 
 void hdnesPackEditormainForm::genGameObjsTilePack(fstream& file, bool withCondition){
     genGameObjItemTilePack(file, tItmGameObjRoot, withCondition);
