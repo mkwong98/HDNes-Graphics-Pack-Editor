@@ -68,6 +68,7 @@ class hdnesPackEditormainForm : public mainForm, public colourDialogClient, publ
 		void romColour2( wxCommandEvent& event );
 		void romColour3( wxCommandEvent& event );
 		void romViewPaletteHexChanged( wxCommandEvent& event );
+        void romViewTileSizeChanged( wxCommandEvent& event );
 		void romViewSizeChanged( wxSizeEvent& event );
         void romViewVScrolled( wxScrollEvent& event );
         void romViewHScrolled( wxScrollEvent& event );

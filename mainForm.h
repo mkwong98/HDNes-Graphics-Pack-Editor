@@ -227,6 +227,8 @@ class mainForm : public wxFrame
 		wxButton* btnRomViewColour2;
 		wxButton* btnRomViewColour3;
 		wxTextCtrl* txtRomViewPalette;
+		wxStaticText* m_staticText77;
+		wxCheckBox* chkRomViewTileSize;
 		wxPanel* pnlRom;
 		wxScrollBar* romVScroll;
 		wxScrollBar* romHScroll;
@@ -318,6 +320,7 @@ class mainForm : public wxFrame
 		virtual void romColour2( wxCommandEvent& event ) { event.Skip(); }
 		virtual void romColour3( wxCommandEvent& event ) { event.Skip(); }
 		virtual void romViewPaletteHexChanged( wxCommandEvent& event ) { event.Skip(); }
+		virtual void romViewTileSizeChanged( wxCommandEvent& event ) { event.Skip(); }
 		virtual void romViewEnter( wxMouseEvent& event ) { event.Skip(); }
 		virtual void romViewLDown( wxMouseEvent& event ) { event.Skip(); }
 		virtual void romViewLUp( wxMouseEvent& event ) { event.Skip(); }

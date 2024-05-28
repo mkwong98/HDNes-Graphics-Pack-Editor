@@ -274,7 +274,7 @@ mainForm::mainForm( wxWindow* parent, wxWindowID id, const wxString& title, cons
 	pnlObj->SetSizer( bSizer14 );
 	pnlObj->Layout();
 	bSizer14->Fit( pnlObj );
-	nbkGameObject->AddPage( pnlObj, wxT("Object information"), false );
+	nbkGameObject->AddPage( pnlObj, wxT("Object information"), true );
 	pnlSwaps = new wxPanel( nbkGameObject, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxBoxSizer* bSizer40;
 	bSizer40 = new wxBoxSizer( wxVERTICAL );
@@ -876,7 +876,7 @@ mainForm::mainForm( wxWindow* parent, wxWindowID id, const wxString& title, cons
 	pnlConditions->SetSizer( bSizer512 );
 	pnlConditions->Layout();
 	bSizer512->Fit( pnlConditions );
-	nbkGameObject->AddPage( pnlConditions, wxT("Conditions"), true );
+	nbkGameObject->AddPage( pnlConditions, wxT("Conditions"), false );
 	pnlAnimation = new wxPanel( nbkGameObject, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxBoxSizer* bSizer62;
 	bSizer62 = new wxBoxSizer( wxVERTICAL );
@@ -1076,6 +1076,13 @@ mainForm::mainForm( wxWindow* parent, wxWindowID id, const wxString& title, cons
 	#endif
 	bSizer7->Add( txtRomViewPalette, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 
+	m_staticText77 = new wxStaticText( m_panel1, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText77->Wrap( -1 );
+	bSizer7->Add( m_staticText77, 0, wxALL, 5 );
+
+	chkRomViewTileSize = new wxCheckBox( m_panel1, wxID_ANY, wxT("8x16"), wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer7->Add( chkRomViewTileSize, 0, wxALL, 5 );
+
 
 	bSizer6->Add( bSizer7, 0, wxEXPAND, 5 );
 
@@ -1246,6 +1253,7 @@ mainForm::mainForm( wxWindow* parent, wxWindowID id, const wxString& title, cons
 	btnRomViewColour2->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( mainForm::romColour2 ), NULL, this );
 	btnRomViewColour3->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( mainForm::romColour3 ), NULL, this );
 	txtRomViewPalette->Connect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( mainForm::romViewPaletteHexChanged ), NULL, this );
+	chkRomViewTileSize->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( mainForm::romViewTileSizeChanged ), NULL, this );
 	pnlRom->Connect( wxEVT_ENTER_WINDOW, wxMouseEventHandler( mainForm::romViewEnter ), NULL, this );
 	pnlRom->Connect( wxEVT_LEFT_DOWN, wxMouseEventHandler( mainForm::romViewLDown ), NULL, this );
 	pnlRom->Connect( wxEVT_LEFT_UP, wxMouseEventHandler( mainForm::romViewLUp ), NULL, this );
@@ -1387,6 +1395,7 @@ mainForm::~mainForm()
 	btnRomViewColour2->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( mainForm::romColour2 ), NULL, this );
 	btnRomViewColour3->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( mainForm::romColour3 ), NULL, this );
 	txtRomViewPalette->Disconnect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( mainForm::romViewPaletteHexChanged ), NULL, this );
+	chkRomViewTileSize->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( mainForm::romViewTileSizeChanged ), NULL, this );
 	pnlRom->Disconnect( wxEVT_ENTER_WINDOW, wxMouseEventHandler( mainForm::romViewEnter ), NULL, this );
 	pnlRom->Disconnect( wxEVT_LEFT_DOWN, wxMouseEventHandler( mainForm::romViewLDown ), NULL, this );
 	pnlRom->Disconnect( wxEVT_LEFT_UP, wxMouseEventHandler( mainForm::romViewLUp ), NULL, this );

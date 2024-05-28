@@ -327,6 +327,12 @@ void hdnesPackEditormainForm::romViewPaletteHexChanged( wxCommandEvent& event ){
     }
 }
 
+void hdnesPackEditormainForm::romViewTileSizeChanged( wxCommandEvent& event ){
+    if(coreData::cData){
+        refreshROMView();
+    }
+}
+
 void hdnesPackEditormainForm::romColour1( wxCommandEvent& event ){
     openColourDialog(COLOUR_CLIENT_ROM_VIEW_1);
 }
@@ -432,10 +438,26 @@ void hdnesPackEditormainForm::drawROMView(){
         Uint32 memAddress;
         Uint16 drawX;
         Uint16 drawY;
+        Uint32 id;
+        Uint8 offset;
         for(Uint16 j = 0; j < visibleRows; ++j){
             for(Uint16 i = 0; i < 16; ++i){
                 if(romViewCurrentRow + j < romViewDisplayRows){
-                    memAddress = ((romViewCurrentRow + j) * 16 + i) * 16;
+
+                    id = (romViewCurrentRow + j) * 16 + i;
+                    if(chkRomViewTileSize->GetValue()){
+                        //adjust for 8x16
+                        offset = id % 32;
+                        if(offset < 16){
+                            offset *= 2;
+                        }
+                        else{
+                            offset = (offset - 16) * 2 + 1;
+                        }
+                        id = (id & 0xFFFFFFE0) + offset;
+                    }
+
+                    memAddress = id * 16;
                     if(memAddress < coreData::cData->romSize){
                         drawX = i * 8;
                         drawY = j * 8;
@@ -616,13 +638,27 @@ void hdnesPackEditormainForm::romViewMenu( wxCommandEvent& event ){
     string copyContent = "";
     int tileX;
     int tileY;
+    Uint32 id;
+    Uint8 offset;
     for(Uint32 k = 0; k < romViewSelectedTiles.size(); ++k){
         tileX = romViewSelectedTiles[k] % 16;
         tileY = romViewSelectedTiles[k] / 16;
         if(copyContent != ""){
             copyContent = copyContent + "\n";
         }
-        copyContent = copyContent + coreData::cData->getTileID(romViewSelectedTiles[k])
+        id = romViewSelectedTiles[k];
+        if(chkRomViewTileSize->GetValue()){
+            //adjust for 8x16
+            offset = id % 32;
+            if(offset < 16){
+                offset *= 2;
+            }
+            else{
+                offset = (offset - 16) * 2 + 1;
+            }
+            id = (id & 0xFFFFFFE0) + offset;
+        }
+        copyContent = copyContent + coreData::cData->getTileID(id)
                         + "," + txtRomViewPalette->GetValue().ToStdString()
                         + "," + main::intToStr((tileX - rightClickedTileX) * 8)
                         + "," + main::intToStr((tileY - rightClickedTileY) * 8);
