@@ -261,6 +261,10 @@ class hdnesPackEditormainForm : public mainForm, public colourDialogClient, publ
         Uint32 rightClickedgameObjID;
         int rightClickedGameObjTileX;
         int rightClickedGameObjTileY;
+        Uint32 leftClickedgameObjID;
+        int leftClickedGameObjTileX;
+        int leftClickedGameObjTileY;
+        bool selectedTileClicked;
         vector<Uint32> gameObjconditionTiles;
         int conditionGameObjTileX;
         int conditionGameObjTileY;
@@ -275,6 +279,7 @@ class hdnesPackEditormainForm : public mainForm, public colourDialogClient, publ
         int selectedCondition;
         bool loadingTab;
         int selectedFrameRange;
+
 
         void initGameObjs();
         void configGameObjs(string lineHdr, string lineTail);
@@ -326,6 +331,7 @@ class hdnesPackEditormainForm : public mainForm, public colourDialogClient, publ
         void setReplacement(int imageID, int x, int y);
         void findGameObjNotUniqueTile();
         void addGameObjNotUniqueTileCondition();
+        bool checkSelectedTileAtPos(wxPoint pos, Uint32& idx);
 
         void loadSwaps();
         void showSwap();

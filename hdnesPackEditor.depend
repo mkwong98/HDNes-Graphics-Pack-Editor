@@ -7273,7 +7273,7 @@
 1561782682 d:\work\hdnes\trunk\hdnespackeditor\image.h
 	"common.h"
 
-1716689032 d:\work\hdnes\trunk\hdnespackeditor\hdnespackeditormainform.h
+1717468936 d:\work\hdnes\trunk\hdnespackeditor\hdnespackeditormainform.h
 	"common.h"
 	"mainForm.h"
 	"colourDialogClient.h"
@@ -7603,7 +7603,7 @@
 	"wx/gdicmn.h"
 	"wx/dialog.h"
 
-1716810645 source:d:\work\hdnes\trunk\hdnespackeditor\hdnespackeditormainform.cpp
+1717489274 source:d:\work\hdnes\trunk\hdnespackeditor\hdnespackeditormainform.cpp
 	"hdnesPackEditormainForm.h"
 	"hdnesPackEditornewProjectDialog.h"
 	"hdnesPackEditorcolourSelectDialog.h"
@@ -7694,7 +7694,7 @@
 	"hdnesPackEditormainForm.h"
 	"main.h"
 
-1716688741 source:d:\work\hdnes\trunk\hdnespackeditor\mainform.cpp
+1716859553 source:d:\work\hdnes\trunk\hdnespackeditor\mainform.cpp
 	"mainForm.h"
 
 1604761296 source:d:\work\hdnes\trunk\hdnespackeditor\paletteswap.cpp
