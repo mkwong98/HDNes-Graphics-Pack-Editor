@@ -133,7 +133,7 @@ class mainForm : public wxFrame
 		wxStaticText* m_staticText67;
 		wxTextCtrl* txtBGOffsetY;
 		wxStaticText* m_staticText68;
-		wxStaticText* m_staticText69;
+		wxRadioButton* rbnBGOffsetByTime;
 		wxTextCtrl* txtBGMoveX;
 		wxStaticText* m_staticText70;
 		wxTextCtrl* txtBGMoveY;
@@ -142,6 +142,17 @@ class mainForm : public wxFrame
 		wxStaticText* m_staticText72;
 		wxTextCtrl* txtBGMoveCount;
 		wxStaticText* m_staticText73;
+		wxRadioButton* rbnBGOffsetByAddress;
+		wxTextCtrl* txtBGOffsetByAddress;
+		wxStaticText* m_staticText531;
+		wxStaticText* m_staticText541;
+		wxStaticText* m_staticText551;
+		wxSpinCtrl* spnBGOffsetByAddressHScrollRate;
+		wxStaticText* m_staticText581;
+		wxStaticText* m_staticText561;
+		wxStaticText* m_staticText571;
+		wxSpinCtrl* spnBGOffsetByAddressVScrollRate;
+		wxStaticText* m_staticText592;
 		wxPanel* pnlBGImageDisplay;
 		wxPanel* pnlConditions;
 		wxListCtrl* lstConditions;
@@ -289,10 +300,15 @@ class mainForm : public wxFrame
 		virtual void BGImagePriority( wxSpinEvent& event ) { event.Skip(); }
 		virtual void BGImageOffsetX( wxCommandEvent& event ) { event.Skip(); }
 		virtual void BGImageOffsetY( wxCommandEvent& event ) { event.Skip(); }
+		virtual void BGImageOffsetByTime( wxCommandEvent& event ) { event.Skip(); }
 		virtual void BGImageMoveX( wxCommandEvent& event ) { event.Skip(); }
 		virtual void BGImageMoveY( wxCommandEvent& event ) { event.Skip(); }
 		virtual void BGImageMoveFreq( wxCommandEvent& event ) { event.Skip(); }
 		virtual void BGImageMoveCount( wxCommandEvent& event ) { event.Skip(); }
+		virtual void BGImageOffsetByAddress( wxCommandEvent& event ) { event.Skip(); }
+		virtual void BGImageOffsetValueAddress( wxCommandEvent& event ) { event.Skip(); }
+		virtual void BGImageOffsetByAddressHScrollRate( wxSpinEvent& event ) { event.Skip(); }
+		virtual void BGImageOffsetByAddressVScrollRate( wxSpinEvent& event ) { event.Skip(); }
 		virtual void ConditionSelected( wxListEvent& event ) { event.Skip(); }
 		virtual void ConditionTypeSelect( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ConditionAdd( wxCommandEvent& event ) { event.Skip(); }

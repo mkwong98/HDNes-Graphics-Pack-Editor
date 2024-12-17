@@ -62,6 +62,10 @@ class gameObjNode : public wxTreeItemData
         int moveY;
         int moveFreq;
         int moveCount;
+        bool isMoveByTime;
+        int moveByAddress;
+        double byAddressHScrollRate;
+        double byAddressVScrollRate;
 
         vector<gameTile> tiles;
         vector<paletteSwap> swaps;

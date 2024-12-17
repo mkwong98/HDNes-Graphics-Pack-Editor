@@ -7273,7 +7273,7 @@
 1561782682 d:\work\hdnes\trunk\hdnespackeditor\image.h
 	"common.h"
 
-1717468936 d:\work\hdnes\trunk\hdnespackeditor\hdnespackeditormainform.h
+1734245562 d:\work\hdnes\trunk\hdnespackeditor\hdnespackeditormainform.h
 	"common.h"
 	"mainForm.h"
 	"colourDialogClient.h"
@@ -7282,7 +7282,7 @@
 	"gameObjNode.h"
 	"classList.h"
 
-1716688741 d:\work\hdnes\trunk\hdnespackeditor\mainform.h
+1734245301 d:\work\hdnes\trunk\hdnespackeditor\mainform.h
 	<wx/artprov.h>
 	<wx/xrc/xmlres.h>
 	<wx/string.h>
@@ -7540,7 +7540,7 @@
 
 1561782682 d:\work\hdnes\trunk\hdnespackeditor\colourdialogclient.h
 
-1625717757 d:\work\hdnes\trunk\hdnespackeditor\gameobjnode.h
+1733975895 d:\work\hdnes\trunk\hdnespackeditor\gameobjnode.h
 	"common.h"
 	"gameTile.h"
 	<wx/treebase.h>
@@ -7548,7 +7548,7 @@
 1561782682 d:\work\hdnes\trunk\hdnespackeditor\hdnespackeditornewprojectdialog.h
 	"mainForm.h"
 
-1625718150 source:d:\work\hdnes\trunk\hdnespackeditor\gameobjnode.cpp
+1734249152 source:d:\work\hdnes\trunk\hdnespackeditor\gameobjnode.cpp
 	"coreData.h"
 	"gameObjNode.h"
 	"gameTile.h"
@@ -7678,7 +7678,7 @@
 	"main.h"
 	"coreData.h"
 
-1561782682 source:d:\work\hdnes\trunk\hdnespackeditor\hdnespackeditorreplacementdialog.cpp
+1717642324 source:d:\work\hdnes\trunk\hdnespackeditor\hdnespackeditorreplacementdialog.cpp
 	"hdnesPackEditorreplacementDialog.h"
 	"hdnesPackEditormainForm.h"
 	"coreData.h"
@@ -7694,7 +7694,7 @@
 	"hdnesPackEditormainForm.h"
 	"main.h"
 
-1716859553 source:d:\work\hdnes\trunk\hdnespackeditor\mainform.cpp
+1734245301 source:d:\work\hdnes\trunk\hdnespackeditor\mainform.cpp
 	"mainForm.h"
 
 1604761296 source:d:\work\hdnes\trunk\hdnespackeditor\paletteswap.cpp
@@ -7772,4 +7772,167 @@
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
+
+1561782682 source:d:\work\hdnespackeditor\hdnes-graphics-pack-editor\hdnespackeditorcolourselectdialog.cpp
+	"common.h"
+	"hdnesPackEditorcolourSelectDialog.h"
+	"coreData.h"
+	"colourDialogClient.h"
+	"main.h"
+	"hdnesPackEditormainForm.h"
+	<wx/colordlg.h>
+
+1561782682 d:\work\hdnespackeditor\hdnes-graphics-pack-editor\common.h
+	<fstream>
+	<sstream>
+	<string>
+	<iostream>
+	<vector>
+	<array>
+	<iomanip>
+	<wx/image.h>
+	<SDL2/SDL.h>
+
+1561782682 d:\work\hdnespackeditor\hdnes-graphics-pack-editor\hdnespackeditorcolourselectdialog.h
+	"mainForm.h"
+	"colourDialogClient.h"
+
+1734245301 d:\work\hdnespackeditor\hdnes-graphics-pack-editor\mainform.h
+	<wx/artprov.h>
+	<wx/xrc/xmlres.h>
+	<wx/string.h>
+	<wx/bitmap.h>
+	<wx/image.h>
+	<wx/icon.h>
+	<wx/menu.h>
+	<wx/gdicmn.h>
+	<wx/font.h>
+	<wx/colour.h>
+	<wx/settings.h>
+	<wx/statusbr.h>
+	<wx/treectrl.h>
+	<wx/sizer.h>
+	<wx/panel.h>
+	<wx/radiobut.h>
+	<wx/stattext.h>
+	<wx/button.h>
+	<wx/spinctrl.h>
+	<wx/checkbox.h>
+	<wx/choice.h>
+	<wx/scrolbar.h>
+	<wx/listctrl.h>
+	<wx/textctrl.h>
+	<wx/notebook.h>
+	<wx/splitter.h>
+	<wx/frame.h>
+	<wx/filepicker.h>
+	<wx/dialog.h>
+	<wx/combobox.h>
+
+1561782682 d:\work\hdnespackeditor\hdnes-graphics-pack-editor\colourdialogclient.h
+
+1608807147 d:\work\hdnespackeditor\hdnes-graphics-pack-editor\coredata.h
+	"common.h"
+	"classList.h"
+	<wx/wx.h>
+
+1561782682 d:\work\hdnespackeditor\hdnes-graphics-pack-editor\classlist.h
+
+1716538038 d:\work\hdnespackeditor\hdnes-graphics-pack-editor\main.h
+	"common.h"
+	<wx\wx.h>
+	<SDL2\SDL.h>
+
+1734245562 d:\work\hdnespackeditor\hdnes-graphics-pack-editor\hdnespackeditormainform.h
+	"common.h"
+	"mainForm.h"
+	"colourDialogClient.h"
+	"paletteDialogClient.h"
+	"imageDialogClient.h"
+	"gameObjNode.h"
+	"classList.h"
+
+1605862953 d:\work\hdnespackeditor\hdnes-graphics-pack-editor\palettedialogclient.h
+
+1606278014 d:\work\hdnespackeditor\hdnes-graphics-pack-editor\imagedialogclient.h
+
+1733975895 d:\work\hdnespackeditor\hdnes-graphics-pack-editor\gameobjnode.h
+	"common.h"
+	"gameTile.h"
+	<wx/treebase.h>
+
+1716435669 d:\work\hdnespackeditor\hdnes-graphics-pack-editor\gametile.h
+	"common.h"
+	"classList.h"
+	"condition.h"
+	"tileReference.h"
+
+1604751097 d:\work\hdnespackeditor\hdnes-graphics-pack-editor\condition.h
+	"common.h"
+	"classList.h"
+	"tileReference.h"
+
+1605194127 d:\work\hdnespackeditor\hdnes-graphics-pack-editor\tilereference.h
+	"common.h"
+
+1606278718 source:d:\work\hdnespackeditor\hdnes-graphics-pack-editor\hdnespackeditorimagedialog.cpp
+	"hdnesPackEditorimageDialog.h"
+	"coreData.h"
+	"image.h"
+
+1606276175 d:\work\hdnespackeditor\hdnes-graphics-pack-editor\hdnespackeditorimagedialog.h
+	"mainForm.h"
+	"imageDialogClient.h"
+
+1561782682 d:\work\hdnespackeditor\hdnes-graphics-pack-editor\image.h
+	"common.h"
+
+1561782682 source:d:\work\hdnespackeditor\hdnes-graphics-pack-editor\hdnespackeditornewprojectdialog.cpp
+	<wx/wx.h>
+	"hdnesPackEditornewProjectDialog.h"
+	"hdnesPackEditormainForm.h"
+	"main.h"
+	"coreData.h"
+
+1561782682 d:\work\hdnespackeditor\hdnes-graphics-pack-editor\hdnespackeditornewprojectdialog.h
+	"mainForm.h"
+
+1605863618 source:d:\work\hdnespackeditor\hdnes-graphics-pack-editor\hdnespackeditorpalettedialog.cpp
+	"hdnesPackEditorpaletteDialog.h"
+	"coreData.h"
+	"main.h"
+
+1605863515 d:\work\hdnespackeditor\hdnes-graphics-pack-editor\hdnespackeditorpalettedialog.h
+	"common.h"
+	"mainForm.h"
+	"colourDialogClient.h"
+	"paletteDialogClient.h"
+	"hdnesPackEditorcolourSelectDialog.h"
+
+1561782682 source:d:\work\hdnespackeditor\hdnes-graphics-pack-editor\hdnespackeditorreplacementdialog.cpp
+	"hdnesPackEditorreplacementDialog.h"
+	"hdnesPackEditormainForm.h"
+	"coreData.h"
+	"image.h"
+	"main.h"
+
+1561782682 d:\work\hdnespackeditor\hdnes-graphics-pack-editor\hdnespackeditorreplacementdialog.h
+	"mainForm.h"
+	"gameTile.h"
+
+1561782682 source:d:\work\hdnespackeditor\hdnes-graphics-pack-editor\image.cpp
+	"image.h"
+	"coreData.h"
+
+1604761296 source:d:\work\hdnespackeditor\hdnes-graphics-pack-editor\paletteswap.cpp
+	"paletteSwap.h"
+	"main.h"
+
+1604752360 d:\work\hdnespackeditor\hdnes-graphics-pack-editor\paletteswap.h
+	"common.h"
+
+1605194493 source:d:\work\hdnespackeditor\hdnes-graphics-pack-editor\tilereference.cpp
+	"tileReference.h"
+	"coreData.h"
+	"main.h"
 

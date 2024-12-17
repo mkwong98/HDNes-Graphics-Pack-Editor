@@ -30,6 +30,10 @@ gameObjNode::gameObjNode()
     moveY = 0;
     moveFreq = 0;
     moveCount = 0;
+    isMoveByTime = true;
+    moveByAddress = 0;
+    byAddressHScrollRate = 0;
+    byAddressVScrollRate = 0;
 
     frameRange f;
     f.frameCnt = 1;
@@ -138,11 +142,19 @@ void gameObjNode::load(fstream& file, wxTreeItemId newItm){
                 offsetX = atoi(tailStrs[0].c_str());
                 offsetY = atoi(tailStrs[1].c_str());
             }
+            else if(lineHdr == "<isMoveByTime>"){
+                isMoveByTime = (lineTail == "Y");
+            }
             else if(lineHdr == "<move>"){
                 moveX = atoi(tailStrs[0].c_str());
                 moveY = atoi(tailStrs[1].c_str());
                 moveFreq = atoi(tailStrs[2].c_str());
                 moveCount = atoi(tailStrs[3].c_str());
+            }
+            else if(lineHdr == "<byAddress>"){
+                moveByAddress = atoi(tailStrs[0].c_str());
+                byAddressHScrollRate = atof(tailStrs[1].c_str());
+                byAddressVScrollRate = atof(tailStrs[2].c_str());
             }
             else if(lineHdr == "<tiles>"){
                 getline(file, line);
@@ -250,7 +262,9 @@ void gameObjNode::save(fstream& file, wxTreeItemId newItm){
             file << "<scrollRate>" << hScrollRate << "," << vScrollRate << "\n";
             file << "<priority>" << priority << "\n";
             file << "<offset>" << offsetX  << "," << offsetY << "\n";
+            file << "<isMoveByTime>" << (isMoveByTime ? "Y" : "N") << "\n";
             file << "<move>" << moveX << "," << moveY  << "," << moveFreq << "," << moveCount << "\n";
+            file << "<byAddress>" << moveByAddress << "," << byAddressHScrollRate  << "," << byAddressVScrollRate << "\n";
         }
     }
     else{
@@ -342,6 +356,10 @@ gameObjNode* gameObjNode::clone(){
     n->moveY = moveY;
     n->moveFreq = moveFreq;
     n->moveCount = moveCount;
+    n->isMoveByTime = isMoveByTime;
+    n->moveByAddress = moveByAddress;
+    n->byAddressHScrollRate = byAddressHScrollRate;
+    n->byAddressVScrollRate = byAddressVScrollRate;
     n->updatePalettes();
     n->updateImages();
     return n;
@@ -364,7 +382,12 @@ string gameObjNode::writeConditionNames(){
 
 string gameObjNode::writeLine(int frameID){
     stringstream stream;
-    stream << fileName << "," << brightness << "," << hScrollRate << "," << vScrollRate << "," << (coreData::cData->verNo >= 106 ? main::intToStr(priority) : (priority < 10 ? "Y" : "N")) << "," << offsetX + (frameID * moveX) << "," << offsetY + (frameID * moveY);
+    if(isMoveByTime){
+        stream << fileName << "," << brightness << "," << hScrollRate << "," << vScrollRate << "," << (coreData::cData->verNo >= 106 ? main::intToStr(priority) : (priority < 10 ? "Y" : "N")) << "," << offsetX + (frameID * moveX) << "," << offsetY + (frameID * moveY);
+    }
+    else{
+        stream << fileName << "," << brightness << "," << hScrollRate << "," << vScrollRate << "," << (coreData::cData->verNo >= 106 ? main::intToStr(priority) : (priority < 10 ? "Y" : "N")) << "," << offsetX + static_cast<int>(round(frameID * byAddressHScrollRate)) << "," << offsetY + static_cast<int>(round(frameID * byAddressVScrollRate));
+    }
     return stream.str();
 }
 

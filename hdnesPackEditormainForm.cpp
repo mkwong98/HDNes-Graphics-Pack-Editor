@@ -1815,6 +1815,12 @@ void hdnesPackEditormainForm::refreshBGImage(){
     txtBGMoveY->SetValue(main::intToStr(ndata->moveY));
     txtBGMoveFreq->SetValue(main::intToStr(ndata->moveFreq));
     txtBGMoveCount->SetValue(main::intToStr(ndata->moveCount));
+    rbnBGOffsetByTime->SetValue(ndata->isMoveByTime);
+    rbnBGOffsetByAddress->SetValue(!ndata->isMoveByTime);
+    txtBGOffsetByAddress->SetValue(main::intToHex(ndata->moveByAddress));
+    spnBGOffsetByAddressHScrollRate->SetValue(ndata->byAddressHScrollRate * 100);
+    spnBGOffsetByAddressVScrollRate->SetValue(ndata->byAddressVScrollRate * 100);
+
 
     loadConditions();
     drawBGImage();
@@ -2874,14 +2880,28 @@ void hdnesPackEditormainForm::genGameObjItemTilePack(fstream& file, wxTreeItemId
         }
     }
     else if(node->nodeType == GAME_OBJ_NODE_TYPE_BGIMAGE && withCondition){
-        if(node->moveCount > 1 && node->moveFreq > 0 ){
+        if(node->isMoveByTime && node->moveCount > 1 && node->moveFreq > 0 ){
             for(int i = node->moveCount - 1; i >= 0; i--){
                 file << "<condition>" << node->nodeName << "ani" << i << ",frameRange," << node->moveCount * node->moveFreq << "," << i * node->moveFreq << "\n";
                 file << "[";
                 if(node->conditions.size() > 0){
                     file << node->writeConditionNames();
                     file << "&";
-                 }
+                }
+                file << node->nodeName << "ani" << i ;
+                file << "]";
+               //write line
+                file << "<background>" << node->writeLine(i) << "\n";
+            }
+        }
+        else if((!node->isMoveByTime) && (node->byAddressHScrollRate != 0 || node->byAddressVScrollRate != 0)){
+            for(int i = 0; i <= 0xFF; i++){
+                file << "<condition>" << node->nodeName << "ani" << i << ",memoryCheckConstant," << main::u32ToHex(node->moveByAddress) << ",==," << main::intToHex(i) << "\n";
+                file << "[";
+                if(node->conditions.size() > 0){
+                    file << node->writeConditionNames();
+                    file << "&";
+                }
                 file << node->nodeName << "ani" << i ;
                 file << "]";
                //write line
@@ -3504,6 +3524,46 @@ void hdnesPackEditormainForm::BGImageMoveCount( wxCommandEvent& event ){
     gameObjNode* ndata = getGameObjsSelectedObjectTreeNode();
     if(ndata){
         ndata->moveCount = atoi(txtBGMoveCount->GetValue());
+        dataChanged();
+    }
+}
+
+void hdnesPackEditormainForm::BGImageOffsetByTime( wxCommandEvent& event ){
+    gameObjNode* ndata = getGameObjsSelectedObjectTreeNode();
+    if(ndata){
+        ndata->isMoveByTime = rbnBGOffsetByTime->GetValue();
+        dataChanged();
+    }
+}
+
+void hdnesPackEditormainForm::BGImageOffsetByAddress( wxCommandEvent& event ){
+    gameObjNode* ndata = getGameObjsSelectedObjectTreeNode();
+    if(ndata){
+        ndata->isMoveByTime = !rbnBGOffsetByAddress->GetValue();
+        dataChanged();
+    }
+}
+
+void hdnesPackEditormainForm::BGImageOffsetValueAddress( wxCommandEvent& event ){
+    gameObjNode* ndata = getGameObjsSelectedObjectTreeNode();
+    if(ndata){
+        ndata->moveByAddress = strtol(txtBGOffsetByAddress->GetValue(), NULL, 16);
+        dataChanged();
+    }
+}
+
+void hdnesPackEditormainForm::BGImageOffsetByAddressHScrollRate( wxSpinEvent& event ){
+    gameObjNode* ndata = getGameObjsSelectedObjectTreeNode();
+    if(ndata){
+        ndata->byAddressHScrollRate = (float)spnBGOffsetByAddressHScrollRate->GetValue() / 100.0;
+        dataChanged();
+    }
+}
+
+void hdnesPackEditormainForm::BGImageOffsetByAddressVScrollRate( wxSpinEvent& event ){
+    gameObjNode* ndata = getGameObjsSelectedObjectTreeNode();
+    if(ndata){
+        ndata->byAddressVScrollRate = (float)spnBGOffsetByAddressVScrollRate->GetValue() / 100.0;
         dataChanged();
     }
 }
