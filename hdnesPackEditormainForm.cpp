@@ -2832,6 +2832,7 @@ void hdnesPackEditormainForm::genGameObjItemAdditionPack(fstream& file, wxTreeIt
         for(int i = 0; i < node->tiles.size(); ++i){
             if(node->tiles[i].isAddition){
                 node->tiles[i].id.readPalette(main::u32ToHex(0xFF400000 + additionCounter));
+                node->tiles[i].id.readID(main::u32ToHex(additionCounter), true);
                 file << "<addition>" << node->tiles[node->tiles[i].linkedTileIdx].id.writeID(coreData::cData->verNo >= 103) << "," << node->tiles[node->tiles[i].linkedTileIdx].id.writePalette() << ",";
                 file << ((node->tiles[node->tiles[i].linkedTileIdx].hFlip ? -1 : 1) * (node->tiles[i].objCoordX - node->tiles[node->tiles[i].linkedTileIdx].objCoordX)) << ",";
                 file << ((node->tiles[node->tiles[i].linkedTileIdx].vFlip ? -1 : 1) * (node->tiles[i].objCoordY - node->tiles[node->tiles[i].linkedTileIdx].objCoordY)) << ",";
