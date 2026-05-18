@@ -753,14 +753,14 @@ void hdnesPackEditormainForm::initGameObjs(){
     cboConditionOp->Append(wxString("!="));
     cboConditionOp->Append(wxString(">"));
     cboConditionOp->Append(wxString("<"));
-    cboConditionOp->Append(wxString("<="));
+    cboConditionOp->Append(wxString(">="));
     cboConditionOp->Append(wxString("<="));
 
     cboConditionOp2->Append(wxString("=="));
     cboConditionOp2->Append(wxString("!="));
     cboConditionOp2->Append(wxString(">"));
     cboConditionOp2->Append(wxString("<"));
-    cboConditionOp2->Append(wxString("<="));
+    cboConditionOp2->Append(wxString(">="));
     cboConditionOp2->Append(wxString("<="));
 
     lstFrameRange->AppendColumn(wxString("Frame name"));
@@ -3299,11 +3299,13 @@ void hdnesPackEditormainForm::showCondition(){
         txtConditionAddress1->SetValue(main::intToHex(c.address));
         cboConditionOp->SetSelection(cboConditionOp->FindString(wxString(c.op.c_str())));
         txtConditionAddress2->SetValue(main::intToHex(c.value));
+        txtConditionMask->SetValue(main::intToHex(c.mask));
     }
     else if(c.conditionType == "memoryCheckConstant" || c.conditionType == "ppuMemoryCheckConstant"){
         txtConditionAddress->SetValue(main::intToHex(c.address));
         cboConditionOp2->SetSelection(cboConditionOp2->FindString(wxString(c.op.c_str())));
         txtConditionValue->SetValue(main::intToHex(c.value));
+        txtConditionValueMask->SetValue(main::intToHex(c.mask));
     }
     else if(c.conditionType == "frameRange" || c.conditionType == "spriteFrameRange"){
         txtConditionDivisor->SetValue(main::intToStr(c.frame1));
@@ -3362,11 +3364,13 @@ void hdnesPackEditormainForm::updateConditionData(condition& c){
         c.address = strtol(txtConditionAddress1->GetValue(), NULL, 16);
         c.op = cboConditionOp->GetString(cboConditionOp->GetSelection());
         c.value = strtol(txtConditionAddress2->GetValue(), NULL, 16);
+        c.mask = strtol(txtConditionMask->GetValue(), NULL, 16);
     }
     else if(c.conditionType == "memoryCheckConstant" || c.conditionType == "ppuMemoryCheckConstant"){
         c.address = strtol(txtConditionAddress->GetValue(), NULL, 16);
         c.op = cboConditionOp2->GetString(cboConditionOp2->GetSelection());
         c.value = strtol(txtConditionValue->GetValue(), NULL, 16);
+        c.mask = strtol(txtConditionValueMask->GetValue(), NULL, 16);
     }
     else if(c.conditionType == "frameRange" || c.conditionType == "spriteFrameRange"){
         c.frame1 = atoi(txtConditionDivisor->GetValue());

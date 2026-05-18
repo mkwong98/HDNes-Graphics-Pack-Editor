@@ -184,6 +184,9 @@ class mainForm : public wxFrame
 		wxStaticText* m_staticText41;
 		wxStaticText* m_staticText42;
 		wxTextCtrl* txtConditionAddress2;
+		wxStaticText* m_staticText411;
+		wxStaticText* m_staticText421;
+		wxTextCtrl* txtConditionMask;
 		wxPanel* pnlConditionType3;
 		wxStaticText* m_staticText43;
 		wxTextCtrl* txtConditionAddress;
@@ -193,6 +196,9 @@ class mainForm : public wxFrame
 		wxStaticText* m_staticText46;
 		wxStaticText* m_staticText47;
 		wxTextCtrl* txtConditionValue;
+		wxStaticText* m_staticText461;
+		wxStaticText* m_staticText471;
+		wxTextCtrl* txtConditionValueMask;
 		wxPanel* pnlConditionType4;
 		wxStaticText* m_staticText74;
 		wxTextCtrl* txtConditionDivisor;
@@ -349,13 +355,13 @@ class mainForm : public wxFrame
 
 	public:
 
-		mainForm( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("HDNes Graphics Pack Editor"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 980,626 ), long style = wxDEFAULT_FRAME_STYLE|wxRESIZE_BORDER|wxTAB_TRAVERSAL );
+		mainForm( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("HDNes Graphics Pack Editor"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 1047,626 ), long style = wxDEFAULT_FRAME_STYLE|wxRESIZE_BORDER|wxTAB_TRAVERSAL );
 
 		~mainForm();
 
 		void m_splitter2OnIdle( wxIdleEvent& )
 		{
-			m_splitter2->SetSashPosition( 150 );
+			m_splitter2->SetSashPosition( 110 );
 			m_splitter2->Disconnect( wxEVT_IDLE, wxIdleEventHandler( mainForm::m_splitter2OnIdle ), NULL, this );
 		}
 

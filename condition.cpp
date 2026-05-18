@@ -43,6 +43,7 @@ bool condition::compareEqual(condition& c){
         if(address != c.address) return false;
         if(op != c.op) return false;
         if(value != c.value) return false;
+        if(mask != c.mask) return false;
     }
     else{
         if(frame1 != c.frame1) return false;
@@ -96,6 +97,10 @@ void condition::load(fstream& file){
                 address = atoi(tailStrs[0].c_str());
                 op = tailStrs[1];
                 value = atoi(tailStrs[2].c_str());
+                if(tailStrs.size() > 3)
+                    mask = atoi(tailStrs[3].c_str());
+                else
+                    mask = 0xFF;
             }
             else if(lineHdr == "<frame>"){
                 frame1 = atoi(tailStrs[0].c_str());
@@ -116,7 +121,7 @@ void condition::save(fstream& file){
         file << "<flip>" << (hFlip ? "Y" : "N") << "," << (vFlip ? "Y" : "N") << "\n";
     }
     else if(getType() == 2){
-        file << "<compare>" << address << "," << op << "," << value << "\n";
+        file << "<compare>" << address << "," << op << "," << value << "," << mask << "\n";
     }
     else if(getType() == 3){
         file << "<frame>" << frame1 << "," << frame2 << "\n";
@@ -152,6 +157,7 @@ void condition::readLine(string s){
         address = strtol(tokens[2].c_str(), NULL, 16);
         op = tokens[3];
         value = strtol(tokens[4].c_str(), NULL, 16);
+        mask = strtol(tokens[5].c_str(), NULL, 16);
     }
     else if(getType() == 3){
         frame1 = atoi(tokens[2].c_str());
@@ -168,7 +174,7 @@ string condition::writeLine(){
         stream << objCoordX << "," << objCoordY << "," << id.writeID(coreData::cData->verNo >= 103) << "," << id.writePalette();
     }
     else if(getType() == 2){
-        stream << main::intToHex(address) << "," << op << "," << main::intToHex(value);
+        stream << main::intToHex(address) << "," << op << "," << main::intToHex(value) << "," << main::intToHex(mask);
     }
     else if(getType() == 3){
         stream << frame1 << "," << frame2;
@@ -188,6 +194,7 @@ condition condition::clone(){
     c.address = address;
     c.op = op;
     c.value = value;
+    c.mask = mask;
     c.frame1 = frame1;
     c.frame2 = frame2;
     return c;

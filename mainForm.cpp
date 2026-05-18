@@ -274,7 +274,7 @@ mainForm::mainForm( wxWindow* parent, wxWindowID id, const wxString& title, cons
 	pnlObj->SetSizer( bSizer14 );
 	pnlObj->Layout();
 	bSizer14->Fit( pnlObj );
-	nbkGameObject->AddPage( pnlObj, wxT("Object information"), true );
+	nbkGameObject->AddPage( pnlObj, wxT("Object information"), false );
 	pnlSwaps = new wxPanel( nbkGameObject, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxBoxSizer* bSizer40;
 	bSizer40 = new wxBoxSizer( wxVERTICAL );
@@ -814,6 +814,17 @@ mainForm::mainForm( wxWindow* parent, wxWindowID id, const wxString& title, cons
 	txtConditionAddress2 = new wxTextCtrl( pnlConditionType2, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 	bSizer57->Add( txtConditionAddress2, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 
+	m_staticText411 = new wxStaticText( pnlConditionType2, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText411->Wrap( -1 );
+	bSizer57->Add( m_staticText411, 0, wxALL, 5 );
+
+	m_staticText421 = new wxStaticText( pnlConditionType2, wxID_ANY, wxT("Mask:"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText421->Wrap( -1 );
+	bSizer57->Add( m_staticText421, 0, wxALL, 5 );
+
+	txtConditionMask = new wxTextCtrl( pnlConditionType2, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer57->Add( txtConditionMask, 0, wxALL, 5 );
+
 
 	pnlConditionType2->SetSizer( bSizer57 );
 	pnlConditionType2->Layout();
@@ -854,6 +865,17 @@ mainForm::mainForm( wxWindow* parent, wxWindowID id, const wxString& title, cons
 
 	txtConditionValue = new wxTextCtrl( pnlConditionType3, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 	bSizer58->Add( txtConditionValue, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+
+	m_staticText461 = new wxStaticText( pnlConditionType3, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText461->Wrap( -1 );
+	bSizer58->Add( m_staticText461, 0, wxALL, 5 );
+
+	m_staticText471 = new wxStaticText( pnlConditionType3, wxID_ANY, wxT("Mask:"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText471->Wrap( -1 );
+	bSizer58->Add( m_staticText471, 0, wxALL, 5 );
+
+	txtConditionValueMask = new wxTextCtrl( pnlConditionType3, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer58->Add( txtConditionValueMask, 0, wxALL, 5 );
 
 
 	pnlConditionType3->SetSizer( bSizer58 );
@@ -925,7 +947,7 @@ mainForm::mainForm( wxWindow* parent, wxWindowID id, const wxString& title, cons
 	pnlConditions->SetSizer( bSizer512 );
 	pnlConditions->Layout();
 	bSizer512->Fit( pnlConditions );
-	nbkGameObject->AddPage( pnlConditions, wxT("Conditions"), false );
+	nbkGameObject->AddPage( pnlConditions, wxT("Conditions"), true );
 	pnlAnimation = new wxPanel( nbkGameObject, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxBoxSizer* bSizer62;
 	bSizer62 = new wxBoxSizer( wxVERTICAL );
@@ -1006,7 +1028,7 @@ mainForm::mainForm( wxWindow* parent, wxWindowID id, const wxString& title, cons
 	m_panel71->SetSizer( bSizer38 );
 	m_panel71->Layout();
 	bSizer38->Fit( m_panel71 );
-	m_splitter2->SplitVertically( m_panel70, m_panel71, 150 );
+	m_splitter2->SplitVertically( m_panel70, m_panel71, 110 );
 	bSizer12->Add( m_splitter2, 1, wxEXPAND, 5 );
 
 

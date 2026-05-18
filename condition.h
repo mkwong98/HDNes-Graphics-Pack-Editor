@@ -26,6 +26,7 @@ class condition
         string op;
         int address;
         int value;
+        int mask;
 
         //type 3 condition
         int frame1;
