@@ -161,6 +161,7 @@ void gameObjNode::load(fstream& file, wxTreeItemId newItm){
                 while(line != "<endTiles>"){
                     g = gameTile();
                     g.load(file);
+                    if(isSprite) g.id.palette[0] = 0xFF;
                     addTile(g);
                     getline(file, line);
                 }
@@ -247,6 +248,7 @@ void gameObjNode::save(fstream& file, wxTreeItemId newItm){
 
             file << "<tiles>\n";
             for(int i = 0; i < tiles.size(); ++i){
+                if(isSprite) tiles[i].id.palette[0] = 0xFF;
                 tiles[i].save(file);
             }
             file << "<endTiles>\n";
